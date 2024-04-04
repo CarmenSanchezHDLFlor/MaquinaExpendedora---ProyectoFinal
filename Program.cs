@@ -19,8 +19,5 @@ namespace MaquinaExpendedora_ProyectoFinal {
 
         }
 
-        public static void Menu() {
-
-        }
     }
 }
