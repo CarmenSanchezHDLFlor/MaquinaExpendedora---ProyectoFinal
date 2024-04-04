@@ -48,9 +48,9 @@ Esto significa que se debe pedir al usuario la clave cuando se elige esta opció
 
 El siguiente diagrama ilustra las funciones básicas del programa:
 
-Función roja: función estática definida dentro del programa principal.
-Funciones naranja: métodos públicos (funciones) pertenecientes a una clase central, idealmente llamada MaquinaVending.
-Funciones Azules: métodos públicos que deben ser implementados en clases separadas.
+  - Función roja: función estática definida dentro del programa principal.
+  - Funciones naranja: métodos públicos (funciones) pertenecientes a una clase central, idealmente llamada MaquinaVending.
+  - Funciones Azules: métodos públicos que deben ser implementados en clases separadas.
 
 ![Flujo del programa](/Images/Flujo.png)
 
