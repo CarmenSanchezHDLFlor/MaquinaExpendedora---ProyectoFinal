@@ -44,8 +44,6 @@ Las opciones de administración requieren la introducción de una clave secreta 
 Esto significa que se debe pedir al usuario la clave cuando se elige esta opción y volver al menú principal si la clave no es válida.
 
 
-
-
 ## FLUJO DEL PROGRAMA 
 
 El siguiente diagrama ilustra las funciones básicas del programa:
@@ -54,7 +52,7 @@ Función roja: función estática definida dentro del programa principal.
 Funciones naranja: métodos públicos (funciones) pertenecientes a una clase central, idealmente llamada MaquinaVending.
 Funciones Azules: métodos públicos que deben ser implementados en clases separadas.
 
-
+![Flujo del programa](/Images/Flujo.png)
 
 ## DEFINICIÓN DE UN PRODUCTO 
 
