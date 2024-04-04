@@ -14,6 +14,7 @@ Este proyecto implementa una aplicación de máquina expendedora en C# que simul
 
 ## ESTRUCTURA DEL PROGRAMA
 
+![Icono de C#](/Images/Estructura)
 Esta práctica consiste en el desarrollo de una aplicación en modo consola que simule una máquina expendedora para vender diferentes tipos de productos utilizando diferentes tipos de métodos de pago.
 
 El programa debe mostrar una interfaz de usuario básica con los diferentes productos que ofrecen las máquinas y las siguientes opciones:
