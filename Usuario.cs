@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MaquinaExpendedora_ProyectoFinal;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -16,17 +17,26 @@ namespace MaquinaExpendedora___ProyectoFinal {
         public string Ape2 { get; private set; }
         private string Password { get; set; }
 
+        // PROPIEDAD PARA SABER SI ES CLIENTE O ADMIN
+        public bool EsAdmin { get; protected set; }
+
+        // ATRIBUTO PARA LA MAQUINA EXPENDEDORA
+        protected MaquinaExpendedora Maquina { get; set; }
+
         // CONSTRUCTOR
         public Usuario() { }
 
         // CONTRUCTOR PARAMETRIZADO
-        public Usuario(int id, string nickName, string nombre, string ape1, string ape2, string password) {
+        public Usuario(int id, string nickName, string nombre, string ape1, string ape2, string password,
+            bool esAdmin, MaquinaExpendedora maquina) {
             Id = id;
             NickName = nickName;
             Nombre = nombre;
             Ape1 = ape1;
             Ape2 = ape2;
             Password = password;
+            EsAdmin = esAdmin;
+            Maquina = maquina;
         }
 
         // METODOS
@@ -40,10 +50,8 @@ namespace MaquinaExpendedora___ProyectoFinal {
 
         public abstract void Menu();
 
-        public abstract void ComprarProducto();
-
-        public abstract void MostrarProducto();
-
+        public abstract void MostrarProductos();
         public abstract void Salir();
+
     }
 }

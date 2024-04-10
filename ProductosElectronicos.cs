@@ -27,7 +27,7 @@ namespace MaquinaExpendedora_ProyectoFinal {
             base.MostrarInformacion();
             Console.WriteLine($"Tipo Material: {TipoMaterial}");
             Console.WriteLine($"Tiene batería: {TieneBateria}");
-            Console.WriteLine($"Precargado: {Precargado}");
+            Console.WriteLine($"Precargado: {(Precargado ? "Sí" : "No")}");
         }
 
         

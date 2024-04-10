@@ -1,11 +1,18 @@
-﻿using System;
+﻿using MaquinaExpendedora___ProyectoFinal;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MaquinaExpendedora_ProyectoFinal {
-    internal class Producto {
+    internal class Producto : InterfazUsuario {
+
+        public enum TipoProducto {
+            MaterialesPreciosos,
+            ProductosAlimenticios,
+            ProductosElectronicos
+        }
 
         // PROPIEDADES
         public string Nombre { get; set; }
@@ -14,8 +21,11 @@ namespace MaquinaExpendedora_ProyectoFinal {
         public string Descripcion { get; set; }
 
 
+        public int Id {  get; set; }
+
         // CONTRUCTORES 
         public Producto() { }
+
         public Producto(string nombre, int unidades, double precioUnitario, string descripcion) {
             Nombre = nombre;
             Unidades = unidades;
