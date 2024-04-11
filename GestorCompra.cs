@@ -69,12 +69,12 @@ namespace MaquinaExpendedora___ProyectoFinal {
             int[] especificacionesMonedas = { 25, 10, 5, 1 };
 
             Console.WriteLine("Su cambio incluye:");
-            int cambioCentimos = Convert.ToInt32(cambio * 100);
+            int cambioCentimos = Convert.ToInt32(cambio * 100); 
             foreach (int monedaEspecifica in especificacionesMonedas) {
                 int cantidadMonedas = cambioCentimos / monedaEspecifica;
                 if (cantidadMonedas > 0) {
                     Console.WriteLine($"{cantidadMonedas} monedas de {monedaEspecifica} centimos");
-                    cambioCentimos %= monedaEspecifica;
+                    cambioCentimos %= monedaEspecifica; 
                 }
             }
         }
