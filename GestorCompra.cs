@@ -96,7 +96,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
                 productoVendido.Vendido = true;
                 productoVendido.Unidades--;
                 RegistrarVenta(productoVendido, precio);
-                Console.WriteLine("¡Compra completada con éxito!");
+                Console.WriteLine("¡Compra completada.");
             }
             else {
                 Console.WriteLine("Error: No hay stock.");
