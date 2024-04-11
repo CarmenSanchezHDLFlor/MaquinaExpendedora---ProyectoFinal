@@ -9,17 +9,30 @@ using System.Threading.Tasks;
 namespace MaquinaExpendedora___ProyectoFinal {
     internal class InterfazUsuario {
 
+        // PROPIEDADES 
         private MaquinaExpendedora Maquina;
         private Usuario Usuario;
         public List<Producto> Listaproductos { get; private set; }
 
+        private GestorCompra GestorCompra { get; set;}
+
+        // CONTRUCTORES
         public InterfazUsuario() { }
 
         public InterfazUsuario(MaquinaExpendedora maquina, Usuario usuario) {
             Maquina = maquina;
             Usuario = usuario;
+            Listaproductos = Maquina.Listaproductos;
         }
 
+        public InterfazUsuario(MaquinaExpendedora maquina, Usuario usuario, List<Producto> listaProductos) {
+            Maquina = maquina;
+            Usuario = usuario;
+            Listaproductos = maquina.Listaproductos;
+            GestorCompra = new GestorCompra(Listaproductos);
+        }
+
+        // METODOS 
         public void MostrarMenuPrincipal() {
             Console.WriteLine("--- Menu ---");
             if (Maquina.Usuario.EsAdmin) {
@@ -35,7 +48,6 @@ namespace MaquinaExpendedora___ProyectoFinal {
             }
         }
 
-        // METODOS 
         public void MostrarProductos() {
             if (Listaproductos.Count == 0) {
                 Console.WriteLine("no hay productos disponibles en nuestra maquina expendedora. ");
@@ -55,23 +67,163 @@ namespace MaquinaExpendedora___ProyectoFinal {
                     break;
                 }
             }
+
             if (producto == null) {
                 Console.WriteLine("No tenemos ese producto en nuestra maquina.");
                 return;
             }
+
             if (producto.Unidades == 0) {
                 Console.WriteLine("No tenemos el producto en stock.");
                 return;
             }
-            Console.WriteLine($"Has comprado {producto.Nombre} por {producto.PrecioUnitario}.");
-            producto.Unidades--;
+
+            //Console.WriteLine($"Has comprado {producto.Nombre} por {producto.PrecioUnitario}.");
+            //producto.Unidades--;
+
+            Console.WriteLine($"Has seleccionado {producto.Nombre}.");
+            Console.WriteLine($"Precio Unitario: {producto.PrecioUnitario}");
+
+            Console.WriteLine("Selecciona el metodo de pago:");
+            Console.WriteLine("1. Pago en efectivo");
+            Console.WriteLine("2. Pago con tarjeta");
+            int opcionPago = int.Parse(Console.ReadLine());
+
+            switch (opcionPago) {
+                case 1:
+                    PagoEfectivo((int)producto.PrecioUnitario); // MOFIICAR EL (INT)
+                    break;
+                case 2:
+                    PagoTarjeta((int)producto.PrecioUnitario); // MODIFICAR EL (INT)
+                    break;
+                default:
+                    Console.WriteLine("Opción de pago invalida.");
+                    break;
+            }
+        }
+
+        public void PagoEfectivo(int idProducto) {
+            Producto producto = Listaproductos.Find(p => p.Id == idProducto);
+
+            if (producto != null) {
+                GestorCompra.PagoEfectivo(producto.PrecioUnitario, idProducto);
+            }
+            else {
+                Console.WriteLine("No se ha encontrado ningún producto con el ID especificado.");
+            }
+        }
+
+        private void PagoTarjeta(int idProducto) {
+            Console.WriteLine("Pago completado. Dispensando productos...");
+
+            foreach (Producto producto in Listaproductos) {
+                if (producto.Id == idProducto) {
+                    producto.Unidades--; 
+                    Console.WriteLine($"Producto {producto.Nombre} comprado con éxito.");
+                    Console.WriteLine($"Unidades restantes: {producto.Unidades}");
+                    break; 
+                }
+            }
         }
 
         public void CargaIndividualProductos() {
-            
+            // Si es un administrador...
+            if (Usuario.EsAdmin) {
+                Console.WriteLine("Selecciona una opción:");
+                Console.WriteLine("1. Añadir existencias a un producto existente.");
+                Console.WriteLine("2. Añadir un nuevo producto.");
+
+                int opcion = int.Parse(Console.ReadLine());
+
+                switch (opcion) {
+                    case 1:
+                        int idProductoExistente;
+                        string inputIdProducto = Console.ReadLine();
+                        try {
+                            idProductoExistente = int.Parse(inputIdProducto);
+                        }
+                        catch (FormatException) {
+                            Console.WriteLine("ID de producto invalido.");
+                            return;
+                        }
+
+                        // Buscar el producto por su ID
+                        Producto productoExistente = Listaproductos.Find(p => p.Id == idProductoExistente);
+
+                        if (productoExistente == null) {
+                            Console.WriteLine("No se ha encontrado ningun producto con el ID introducido.");
+                            return;
+                        }
+
+                        // Solicitar la cantidad de unidades a añadir
+                        Console.Write("Ingrese la cantidad de unidades a añadir: ");
+                        string inputUnidadesAAnadir = Console.ReadLine();
+                        int unidadesAAnadir;
+
+                        try {
+                            unidadesAAnadir = int.Parse(inputUnidadesAAnadir);
+                        }
+                        catch (FormatException) {
+                            Console.WriteLine("Cantidad inválida.");
+                            return;
+                        }
+
+                        // Añadir las unidades al producto existente
+                        productoExistente.Unidades += unidadesAAnadir;
+                        Console.WriteLine($"Se han añadido {unidadesAAnadir} unidades al producto '{productoExistente.Nombre}'.");
+                        break;
+
+                    case 2: 
+                        // Añadir un nuevo producto
+                        Console.WriteLine("Ingrese los detalles del nuevo producto:");
+                        Console.Write("Nombre: ");
+                        string nombre = Console.ReadLine();
+
+                        int unidades;
+                        while (true) {
+                            Console.Write("Unidades: ");
+                            try {
+                                unidades = int.Parse(Console.ReadLine());
+                                break; 
+                            }
+                            catch (FormatException) {
+                                Console.WriteLine("Cantidad invalida. Por favor, ingrese un numero entero.");
+                            }
+                        }
+                        double precioUnitario;
+                        while (true) {
+                            Console.Write("Precio Unitario: ");
+                            try {
+                                precioUnitario = double.Parse(Console.ReadLine());
+                                break; 
+                            }
+                            catch (FormatException) {
+                                Console.WriteLine("Precio invalido. Por favor, ingrese un numero decimal.");
+                            }
+                        }
+                        Console.Write("Descripcion: ");
+                        string descripcion = Console.ReadLine();
+
+                        // Generar un nuevo ID para el producto
+                        int nuevoId = Listaproductos.Any() ? Listaproductos.Max(p => p.Id) + 1 : 1;
+
+                        // Crear el nuevo producto y agregarlo a la lista de productos
+                        Producto nuevoProducto = new Producto(nombre, unidades, precioUnitario, descripcion) { Id = nuevoId };
+                        Listaproductos.Add(nuevoProducto);
+                        Console.WriteLine("Nuevo producto ha sido agregado correctamente.");
+                        break;
+
+                    default:
+                        Console.WriteLine("Opcion invalida");
+                        break;
+                }
+            }
+            else {
+                Console.WriteLine("No tiene permisos de administrador para realizar esta accion.");
+            }
         }
 
-        public void CargarTodosLosProductos() {
+        public void CargarTodosLosProductos() { // TERMINAR ESTE METODO
             try {
                 Console.Write("Ingrese el nombre del archivo de carga de productos: ");
                 string nombreArchivo = Console.ReadLine();
@@ -79,6 +231,10 @@ namespace MaquinaExpendedora___ProyectoFinal {
                 using (StreamReader sr = new StreamReader(nombreArchivo)) {
                     string linea;
                     while ((linea = sr.ReadLine()) != null) {
+
+
+
+
 
                     }
                 }

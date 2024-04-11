@@ -13,27 +13,13 @@ namespace MaquinaExpendedora_ProyectoFinal {
         public List<Producto> Listaproductos { get; private set; }
         public MaquinaExpendedora Maquina;
 
-
+        // CONSTRUCTORES
         public Usuario Usuario { get; private set; }
 
-        // CONSTRUCTORES
         public MaquinaExpendedora(Usuario usuario) {
             Usuario = usuario;
             Listaproductos = new List<Producto>();
         }
-
-        // METODOS 
-        public void MostrarProductos() {
-            if (Listaproductos.Count == 0) {
-                Console.WriteLine("no hay productos disponibles en nuestra maquina expendedora. ");
-                return;
-            }
-            foreach (Producto p in Listaproductos) {
-                p.MostrarInformacion();
-                Console.WriteLine();
-            }
-        }
-
 
     }
 }

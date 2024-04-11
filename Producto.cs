@@ -20,8 +20,8 @@ namespace MaquinaExpendedora_ProyectoFinal {
         public double PrecioUnitario { get; set; }
         public string Descripcion { get; set; }
 
-
         public int Id {  get; set; }
+        public bool Vendido {  get; set; }
 
         // CONTRUCTORES 
         public Producto() { }
@@ -33,6 +33,14 @@ namespace MaquinaExpendedora_ProyectoFinal {
             Descripcion = descripcion;
         }
 
+        public Producto(string nombre, int unidades, double precioUnitario, string descripcion, bool vendido) {
+            Nombre = nombre;
+            Unidades = unidades;
+            PrecioUnitario = precioUnitario;
+            Descripcion = descripcion;
+            Vendido = vendido;
+        }
+
         // METODOS
         // metodo para mostrar informacion de cada producto
         public virtual void MostrarInformacion() {
@@ -42,6 +50,15 @@ namespace MaquinaExpendedora_ProyectoFinal {
             Console.WriteLine($"Descripcion: {Descripcion}");
         }
 
+        // metodo para consultar si el producto est vendido
+        public bool EstaVendido() {
+            return Vendido;
+        }
+
+        // metodo para marcar el producto como vendido
+        public void MarcarComoVendido() {
+            Vendido = true;
+        }
 
     }
 }
