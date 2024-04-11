@@ -74,7 +74,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
                 int cantidadMonedas = cambioCentimos / monedaEspecifica;
                 if (cantidadMonedas > 0) {
                     Console.WriteLine($"{cantidadMonedas} monedas de {monedaEspecifica} centimos");
-                    cambioCentimos %= monedaEspecifica; 
+                    cambioCentimos %= monedaEspecifica;
                 }
             }
         }
