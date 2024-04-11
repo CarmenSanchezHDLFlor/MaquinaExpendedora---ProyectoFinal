@@ -107,6 +107,5 @@ namespace MaquinaExpendedora___ProyectoFinal {
             Console.WriteLine($"Venta registrada: {producto.Nombre} - ${precio}");
         }
 
-
     }
  } 
