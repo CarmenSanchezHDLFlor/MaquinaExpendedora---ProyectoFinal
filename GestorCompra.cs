@@ -11,6 +11,8 @@ namespace MaquinaExpendedora___ProyectoFinal {
 
         // CONSTRUCTORES
         public GestorCompra() { }
+
+        // CONTRUCTOR PARAMETRIZADO
         public GestorCompra(List<Producto> productos) {
             Listaproductos = productos;
         }

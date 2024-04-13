@@ -14,6 +14,8 @@ namespace MaquinaExpendedora_ProyectoFinal {
 
         // CONSTRUCTORES
         public ProductosElectronicos() { }
+
+        // CONTRUCTOR PARAMETRIZADO
         public ProductosElectronicos(string nombre, int unidades, double precioUnitario, string descripcion, string tipoMaterial, 
             bool tieneBateria, bool precargado)
             : base(nombre, unidades, precioUnitario, descripcion) {
@@ -23,11 +25,12 @@ namespace MaquinaExpendedora_ProyectoFinal {
         }
 
         // METODOS
+        // metodo para mostrar la info de productos electronicos 
         public override void MostrarInformacion() {
             base.MostrarInformacion();
             Console.WriteLine($"Tipo Material: {TipoMaterial}");
             Console.WriteLine($"Tiene batería: {TieneBateria}");
-            Console.WriteLine($"Precargado: {(Precargado ? "Sí" : "No")}");
+            Console.WriteLine($"Precargado: {(Precargado ? "Si" : "No")}");
         }
 
         

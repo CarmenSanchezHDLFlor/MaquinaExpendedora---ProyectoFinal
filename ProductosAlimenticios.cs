@@ -12,12 +12,15 @@ namespace MaquinaExpendedora_ProyectoFinal {
 
         // CONSTRUCTORES
         public ProductosAlimenticios() { }
+
+        // CONTRUCTOR PARAMETRIZADO
         public ProductosAlimenticios(string nombre, int unidades, double precioUnitario, string descripcion, string informacionNutricional)
             : base(nombre, unidades, precioUnitario, descripcion) {
             InformacionNutricional = informacionNutricional;
         }
 
         // METODOS
+        // metodo para mostrar la info de productos alimenticios
         public override void MostrarInformacion() {
             base.MostrarInformacion();
             Console.WriteLine($"Informacion nutricional: {InformacionNutricional}");

@@ -16,6 +16,7 @@ namespace MaquinaExpendedora_ProyectoFinal {
         // CONSTRUCTORES
         public Usuario Usuario { get; private set; }
 
+        // CONTRUCTOR PARAMETRIZADO
         public MaquinaExpendedora(Usuario usuario) {
             Usuario = usuario;
             Listaproductos = new List<Producto>();

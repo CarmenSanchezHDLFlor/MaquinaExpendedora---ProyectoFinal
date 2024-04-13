@@ -13,6 +13,8 @@ namespace MaquinaExpendedora_ProyectoFinal {
 
         // CONSTRUCTORES
         public MaterialesPreciosos() { }
+
+        // CONTRUCTOR PARAMETRIZADO
         public MaterialesPreciosos(string nombre, int unidades, double precioUnitario, string descripcion, string tipoMaterial, double peso)
             : base(nombre, unidades, precioUnitario, descripcion) {
             TipoMaterial = tipoMaterial;
@@ -20,6 +22,7 @@ namespace MaquinaExpendedora_ProyectoFinal {
         }
 
         // METODOS
+        // metodo para mostrar la info de materiales preciosos
         public override void MostrarInformacion() {
             base.MostrarInformacion();
             Console.WriteLine($"TipoMaterial: {TipoMaterial}");
