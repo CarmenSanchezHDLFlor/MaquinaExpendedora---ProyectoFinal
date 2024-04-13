@@ -16,23 +16,43 @@ namespace MaquinaExpendedora___ProyectoFinal {
 
         private GestorCompra GestorCompra { get; set; }
 
+        // PROPIEDAD PARA ADMIN
+        private List<Usuario> ListaUsuariosAdmin = new List<Usuario>();
+
+        // PROPIEDADES PARA CLIENTE
+        private List<Usuario> ListaUsuariosCliente = new List<Usuario>();
+
         // CONTRUCTORES
         public InterfazUsuario() { }
 
+        // CONTRUCTOR PARAMETRIZADO
         public InterfazUsuario(MaquinaExpendedora maquina, Usuario usuario) {
             Maquina = maquina;
             Usuario = usuario;
             Listaproductos = Maquina.Listaproductos;
         }
 
+        // CONTRUCTOR PARAMETRIZADO 2
         public InterfazUsuario(MaquinaExpendedora maquina, Usuario usuario, List<Producto> listaProductos) {
             Maquina = maquina;
             Usuario = usuario;
-            Listaproductos = maquina.Listaproductos;
+            Listaproductos = listaProductos;  
             GestorCompra = new GestorCompra(Listaproductos);
         }
 
         // METODOS 
+        public Producto ElegirProducto() { // TERMINAR 
+
+
+
+
+            return  ;
+        }
+
+
+
+
+        // metodo para mostrar el menu de ambos usuarios
         public void MostrarMenuPrincipal() {
             Console.WriteLine("--- Menu ---");
             if (Maquina.Usuario.EsAdmin) {
@@ -48,19 +68,22 @@ namespace MaquinaExpendedora___ProyectoFinal {
             }
         }
 
-        public void MostrarProductos() {
+        // metodo para mostrar los productos 
+        public void MostrarProductos(bool esAdmin) {
             if (Listaproductos.Count == 0) {
-                Console.WriteLine("no hay productos disponibles en nuestra maquina expendedora. ");
+                Console.WriteLine(esAdmin ? "No hay productos disponibles en nuestra maquina expendedora." : "No hay productos disponibles para su cuenta de cliente.");
                 return;
             }
+
             foreach (Producto p in Listaproductos) {
                 p.MostrarInformacion();
                 Console.WriteLine();
             }
         }
 
+        // metodo para comprar producto
         public void ComprarProducto(int idProducto) {
-            Producto producto = null;
+            Producto producto = ElegirProducto();
             foreach (Producto p in Listaproductos) {
                 if (p.Id == idProducto) {
                     producto = p;
@@ -102,18 +125,21 @@ namespace MaquinaExpendedora___ProyectoFinal {
             }
         }
 
+        // metodo aux para realizar el pago efectivo de la compra
         public void PagoEfectivo(double precio, int idProducto) {
             GestorCompra.PagoEfectivo(precio, idProducto);
         }
 
+        // metodo aux para realizar el pago con tarjeta de la compra
         public void PagoTarjeta(double precio, int idProducto) {
             GestorCompra.PagoTarjeta(precio, idProducto);
         }
 
+        // metodo para cargar individualmente los productos de la maquina 
         public void CargaIndividualProductos() {
             // Si es un administrador...
             if (Usuario.EsAdmin) {
-                Console.WriteLine("Selecciona una opción:");
+                Console.WriteLine("Selecciona una opcion:");
                 Console.WriteLine("1. Añadir existencias a un producto existente.");
                 Console.WriteLine("2. Añadir un nuevo producto.");
 
@@ -148,7 +174,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
                             unidadesAAnadir = int.Parse(inputUnidadesAAnadir);
                         }
                         catch (FormatException) {
-                            Console.WriteLine("Cantidad inválida.");
+                            Console.WriteLine("Cantidad invalida.");
                             return;
                         }
 
@@ -207,7 +233,8 @@ namespace MaquinaExpendedora___ProyectoFinal {
             }
         }
 
-        public void CargarTodosLosProductos() { // TERMINAR ESTE METODO
+        // metood para cargar todos los productos de la maquina 
+        public void CargarTodosLosProductos() {
             try {
                 Console.Write("Ingrese el nombre del archivo de carga de productos: ");
                 string nombreArchivo = Console.ReadLine();
@@ -215,11 +242,27 @@ namespace MaquinaExpendedora___ProyectoFinal {
                 using (StreamReader sr = new StreamReader(nombreArchivo)) {
                     string linea;
                     while ((linea = sr.ReadLine()) != null) {
+                        string[] datosProducto = linea.Split(';'); // Suponiendo que los datos estén separados por punto y coma (;)
+                        if (datosProducto.Length == 4) {
+                            string nombre = datosProducto[0];
+                            int unidades;
+                            double precioUnitario;
+                            string descripcion;
 
-
-
-
-
+                            if (int.TryParse(datosProducto[1], out unidades) &&
+                                double.TryParse(datosProducto[2], out precioUnitario)) {
+                                descripcion = datosProducto[3];
+                                // Crear un nuevo producto y agregarlo a la lista de productos
+                                Producto nuevoProducto = new Producto(nombre, unidades, precioUnitario, descripcion);
+                                Listaproductos.Add(nuevoProducto);
+                            }
+                            else {
+                                Console.WriteLine("Error en el formato de datos del archivo. No se pudo cargar el producto.");
+                            }
+                        }
+                        else {
+                            Console.WriteLine("Error en el formato de datos del archivo. No se pudo cargar el producto.");
+                        }
                     }
                 }
 
@@ -230,6 +273,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
             }
         }
 
+        // metodo para salir de la maquina PRODUCTO
         public void Salir() {
             string filePath = "productos.txt";
             try {
@@ -245,6 +289,37 @@ namespace MaquinaExpendedora___ProyectoFinal {
             }
         }
 
+        // metodo para salir de la maquina ADMIN Y CLIENTE 
+        public void Salir(bool esAdmin) {
+            if (esAdmin) {
+                string filePath = "usuarios_admin.txt";
+                try {
+                    using (StreamWriter sw = new StreamWriter(filePath)) {
+                        foreach (Usuario a in ListaUsuariosAdmin) {
+                            sw.WriteLine(a.Nombre);
+                        }
+                    }
+                    Console.WriteLine("Los IDs de los usuarios admin han sido guardados en el archivo.");
+                }
+                catch (Exception ex) {
+                    Console.WriteLine($"Error al guardar los IDs de los usuarios admin: {ex.Message}");
+                }
+            }
+            else {
+                string filePath = "usuarios_cliente.txt";
+                try {
+                    using (StreamWriter sw = new StreamWriter(filePath)) {
+                        foreach (Usuario cliente in ListaUsuariosCliente) {
+                            sw.WriteLine(cliente.Nombre);
+                        }
+                    }
+                    Console.WriteLine("Los IDs de los usuarios cliente han sido guardados en el archivo.");
+                }
+                catch (Exception ex) {
+                    Console.WriteLine($"Error al guardar los IDs de los usuarios cliente: {ex.Message}");
+                }
+            }
+        }
     }
 }
 

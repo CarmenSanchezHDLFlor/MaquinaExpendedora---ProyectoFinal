@@ -26,6 +26,7 @@ namespace MaquinaExpendedora_ProyectoFinal {
         // CONTRUCTORES 
         public Producto() { }
 
+        // CONTRUCTOR PARAMETRIZADO
         public Producto(string nombre, int unidades, double precioUnitario, string descripcion) {
             Nombre = nombre;
             Unidades = unidades;
@@ -33,6 +34,7 @@ namespace MaquinaExpendedora_ProyectoFinal {
             Descripcion = descripcion;
         }
 
+        // CONTRUCTOR PARAMETRIZADO 2
         public Producto(string nombre, int unidades, double precioUnitario, string descripcion, bool vendido) {
             Nombre = nombre;
             Unidades = unidades;
@@ -50,7 +52,7 @@ namespace MaquinaExpendedora_ProyectoFinal {
             Console.WriteLine($"Descripcion: {Descripcion}");
         }
 
-        // metodo para consultar si el producto est vendido
+        // metodo para consultar si el producto esta vendido
         public bool EstaVendido() {
             return Vendido;
         }

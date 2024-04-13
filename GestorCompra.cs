@@ -11,6 +11,8 @@ namespace MaquinaExpendedora___ProyectoFinal {
 
         // CONSTRUCTORES
         public GestorCompra() { }
+
+        // CONTRUCTOR PARAMETRIZADO
         public GestorCompra(List<Producto> productos) {
             Listaproductos = productos;
         }
@@ -79,13 +81,21 @@ namespace MaquinaExpendedora___ProyectoFinal {
             }
         }
 
-        public void PagoTarjeta(double precio, int idProducto) { // TERMINAR 
+        public void PagoTarjeta(double precio, int idProducto) { 
             Console.WriteLine("Pago con tarjeta seleccionado.");
 
+            Console.WriteLine("Pago con tarjeta seleccionado.");
 
+            Console.WriteLine("Ingrese el número de tarjeta:");
+            string numeroTarjeta = Console.ReadLine();
 
+            Console.WriteLine("Ingrese la fecha de vencimiento (MM/YY):");
+            string fechaVencimiento = Console.ReadLine();
 
+            Console.WriteLine("Ingrese el código de seguridad:");
+            string codigoSeguridad = Console.ReadLine();
 
+            Console.WriteLine("¡Pago con tarjeta completado!");
 
             ProcesarPago(precio, idProducto);
         }
@@ -96,7 +106,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
                 productoVendido.Vendido = true;
                 productoVendido.Unidades--;
                 RegistrarVenta(productoVendido, precio);
-                Console.WriteLine("¡Compra completada.");
+                Console.WriteLine("Compra completada.");
             }
             else {
                 Console.WriteLine("Error: No hay stock.");

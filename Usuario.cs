@@ -25,18 +25,17 @@ namespace MaquinaExpendedora___ProyectoFinal {
         // PROPIEDADES PARA ADMIN 
         protected List<Producto> Listaproductos;
         InterfazUsuario InterfazUsuario = new InterfazUsuario();
-        private List<Usuario> ListaUsuariosAdmin = new List<Usuario>();
 
+        // PROPIEDAD PARA EL ADMIN
+        public string ClaveAdmin { get; private set; }
 
-        // PROPIEDADES PARA CLIENTE
-        private List<Usuario> ListaUsuariosCliente = new List<Usuario>();
 
         // CONSTRUCTOR
         public Usuario() { }
 
         // CONTRUCTOR PARAMETRIZADO
         public Usuario(string nickName, string nombre, string ape1, string ape2, string password,
-            bool esAdmin, MaquinaExpendedora maquina) {
+            bool esAdmin, MaquinaExpendedora maquina, string claveAdmin) {
             NickName = nickName;
             Nombre = nombre;
             Ape1 = ape1;
@@ -44,6 +43,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
             Password = password;
             EsAdmin = esAdmin;
             Maquina = maquina;
+            ClaveAdmin = claveAdmin;
         }
 
         // METODOS
@@ -51,73 +51,83 @@ namespace MaquinaExpendedora___ProyectoFinal {
             return $"{Nombre} {Ape1} {Ape2}";
         }
 
+        // metodo para que el ADMIN pueda acceder 
         public bool Login(string nickname, string password) {
             return NickName == nickname && Password == password;
         }
 
+        // metodo MENU para adminisitrar las acciones de ADMIN y CLIENTE
         public void Menu(bool esAdmin) {
             if (esAdmin) {
-                int opcion;
-                do {
-                    Console.WriteLine("1. Comprar productos. ");
-                    Console.WriteLine("2. Cargar la máquina producto a producto.  ");
-                    Console.WriteLine("3. Cargar la máquina al completo  ");
-                    Console.WriteLine("4. Mostrar todos los productos de la máquina.  ");
-                    Console.WriteLine("5. Salir. ");
-                    Console.WriteLine("Seleccione una opción: ");
-                    opcion = int.Parse(Console.ReadLine());
-                    Console.Clear();
-                    switch (opcion) {
-                        case 1:
-                            Console.Write("Introduce el ID del contenido: ");
-                            int idProductoAComprar;
+                Console.WriteLine("Ingrese la clave de administrador:");
+                string claveIngresada = Console.ReadLine();
 
-                            try {
-                                idProductoAComprar = int.Parse(Console.ReadLine());
-                                Producto producto = null;
-                                foreach (Producto p in Listaproductos) {
-                                    if (p.Id == idProductoAComprar) {
-                                        producto = p;
-                                        break;
+                if (claveIngresada == ClaveAdmin) {
+                    int opcion;
+                    do {
+                        Console.WriteLine("1. Comprar productos. ");
+                        Console.WriteLine("2. Cargar la maquina producto a producto.  ");
+                        Console.WriteLine("3. Cargar la maquina al completo  ");
+                        Console.WriteLine("4. Mostrar todos los productos de la maquina.  ");
+                        Console.WriteLine("5. Salir. ");
+                        Console.WriteLine("Seleccione una opcion: ");
+                        opcion = int.Parse(Console.ReadLine());
+                        Console.Clear();
+                        switch (opcion) {
+                            case 1:
+                                Console.Write("Introduce el ID del contenido: ");
+                                int idProductoAComprar;
+
+                                try {
+                                    idProductoAComprar = int.Parse(Console.ReadLine());
+                                    Producto producto = null;
+                                    foreach (Producto p in Listaproductos) {
+                                        if (p.Id == idProductoAComprar) {
+                                            producto = p;
+                                            break;
+                                        }
+                                    }
+                                    if (producto != null) {
+                                        producto.ComprarProducto(idProductoAComprar);
+                                    }
+                                    else {
+                                        Console.WriteLine("El producto seleccionado no esta en stock.");
                                     }
                                 }
-                                if (producto != null) {
-                                    producto.ComprarProducto(idProductoAComprar);
+                                catch (FormatException) {
+                                    Console.WriteLine("ID de producto invalido. Introduce un nuevo ID");
                                 }
-                                else {
-                                    Console.WriteLine("El producto seleccionado no está en stock.");
-                                }
-                            }
-                            catch (FormatException) {
-                                Console.WriteLine("ID de producto inválido. Introduce un nuevo ID");
-                            }
-                            break;
-                        case 2:
-                            InterfazUsuario.CargaIndividualProductos();
-                            break;
-                        case 3:
-                            InterfazUsuario.CargarTodosLosProductos();
-                            break;
-                        case 4:
-                            MostrarProductos(esAdmin);
-                            break;
-                        case 5:
-                            InterfazUsuario.Salir();
-                            Console.WriteLine("Saliendo...");
-                            break;
-                        default:
-                            Console.WriteLine("Intenta de nuevo.");
-                            break;
-                    }
-                } while (opcion != 5);
+                                break;
+                            case 2:
+                                InterfazUsuario.CargaIndividualProductos();
+                                break;
+                            case 3:
+                                InterfazUsuario.CargarTodosLosProductos();
+                                break;
+                            case 4:
+                                InterfazUsuario.MostrarProductos(esAdmin);
+                                break;
+                            case 5:
+                                InterfazUsuario.Salir(esAdmin);
+                                Console.WriteLine("Saliendo...");
+                                break;
+                            default:
+                                Console.WriteLine("Intenta de nuevo.");
+                                break;
+                        }
+                    } while (opcion != 5);
+                }
+                else {
+                    Console.WriteLine("Clave incorrecta. Acceso denegado.");
+                }
             }
             else {
                 int opcion;
                 do {
                     Console.WriteLine("1. Comprar productos.");
-                    Console.WriteLine("2. Mostrar todos los productos de la máquina.");
-                    Console.WriteLine("3. Salir de la máquina.");
-                    Console.WriteLine("Seleccione una opción: ");
+                    Console.WriteLine("2. Mostrar todos los productos de la maquina.");
+                    Console.WriteLine("3. Salir de la maquina.");
+                    Console.WriteLine("Seleccione una opcion: ");
                     opcion = int.Parse(Console.ReadLine());
                     Console.Clear();
                     switch (opcion) {
@@ -137,77 +147,24 @@ namespace MaquinaExpendedora___ProyectoFinal {
                                     producto.ComprarProducto(idProductoAComprar);
                                 }
                                 else {
-                                    Console.WriteLine("El producto seleccionado no está en stock.");
+                                    Console.WriteLine("El producto seleccionado no esta en stock.");
                                 }
                             }
                             catch (FormatException) {
-                                Console.WriteLine("ID de producto inválido. Introduce un nuevo ID.");
+                                Console.WriteLine("ID de producto invalido. Introduce un nuevo ID.");
                             }
                             break;
                         case 2:
-                            MostrarProductos(esAdmin);
+                            InterfazUsuario.MostrarProductos(!esAdmin);
                             break;
                         case 3:
-                            InterfazUsuario.Salir();
+                            InterfazUsuario.Salir(!esAdmin);
                             break;
                         default:
                             Console.WriteLine("Intenta de nuevo.");
                             break;
                     }
                 } while (opcion != 3);
-            }
-        }
-
-        public void Salir(bool esAdmin) {
-            if (esAdmin) {
-                string filePath = "usuarios_admin.txt";
-                try {
-                    using (StreamWriter sw = new StreamWriter(filePath)) {
-                        foreach (Usuario a in ListaUsuariosAdmin) {
-                            sw.WriteLine(a.Nombre);
-                        }
-                    }
-                    Console.WriteLine("Los IDs de los usuarios admin han sido guardados en el archivo.");
-                }
-                catch (Exception ex) {
-                    Console.WriteLine($"Error al guardar los IDs de los usuarios admin: {ex.Message}");
-                }
-            }
-            else {
-                string filePath = "usuarios_cliente.txt";
-                try {
-                    using (StreamWriter sw = new StreamWriter(filePath)) {
-                        foreach (Usuario cliente in ListaUsuariosCliente) {
-                            sw.WriteLine(cliente.Nombre);
-                        }
-                    }
-                    Console.WriteLine("Los IDs de los usuarios cliente han sido guardados en el archivo.");
-                }
-                catch (Exception ex) {
-                    Console.WriteLine($"Error al guardar los IDs de los usuarios cliente: {ex.Message}");
-                }
-            }
-        }
-        public void MostrarProductos(bool esAdmin) {
-            if (esAdmin) {
-                if (Listaproductos.Count == 0) {
-                    Console.WriteLine("No hay productos disponibles en nuestra máquina expendedora.");
-                    return;
-                }
-                foreach (Producto p in Listaproductos) {
-                    p.MostrarInformacion();
-                    Console.WriteLine();
-                }
-            }
-            else {
-                if (Listaproductos.Count == 0) {
-                    Console.WriteLine("No hay productos disponibles para su cuenta de cliente.");
-                    return;
-                }
-                foreach (Producto p in Listaproductos) {
-                    p.MostrarInformacion();
-                    Console.WriteLine();
-                }
             }
         }
 
