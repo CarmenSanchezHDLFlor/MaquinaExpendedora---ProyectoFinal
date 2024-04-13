@@ -25,11 +25,6 @@ namespace MaquinaExpendedora___ProyectoFinal {
         // PROPIEDADES PARA ADMIN 
         protected List<Producto> Listaproductos;
         InterfazUsuario InterfazUsuario = new InterfazUsuario();
-        private List<Usuario> ListaUsuariosAdmin = new List<Usuario>();
-
-
-        // PROPIEDADES PARA CLIENTE
-        private List<Usuario> ListaUsuariosCliente = new List<Usuario>();
 
         // PROPIEDAD PARA EL ADMIN
         public string ClaveAdmin { get; private set; }
