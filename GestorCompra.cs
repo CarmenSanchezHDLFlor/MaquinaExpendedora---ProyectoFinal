@@ -81,16 +81,24 @@ namespace MaquinaExpendedora___ProyectoFinal {
             }
         }
 
-        public void PagoTarjeta(double precio, int idProducto) { // TERMINAR 
+        public void PagoTarjeta(double precio, int idProducto)
+        {
             Console.WriteLine("Pago con tarjeta seleccionado.");
 
+            Console.WriteLine("Ingrese el número de tarjeta:");
+            string numeroTarjeta = Console.ReadLine();
 
+            Console.WriteLine("Ingrese la fecha de vencimiento (MM/YY):");
+            string fechaVencimiento = Console.ReadLine();
 
+            Console.WriteLine("Ingrese el código de seguridad:");
+            string codigoSeguridad = Console.ReadLine();
 
-
+            Console.WriteLine("¡Pago con tarjeta completado!");
 
             ProcesarPago(precio, idProducto);
         }
+
 
         private void ProcesarPago(double precio, int idProducto) {
             Producto productoVendido = Listaproductos.Find(p => p.Id == idProducto);
