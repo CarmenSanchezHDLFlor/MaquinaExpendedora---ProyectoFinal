@@ -239,7 +239,8 @@ namespace MaquinaExpendedora___ProyectoFinal {
                 Console.Write("Ingrese el nombre del archivo de carga de productos: ");
                 string nombreArchivo = Console.ReadLine();
 
-                using (StreamReader sr = new StreamReader(nombreArchivo)) {
+                using (StreamReader sr = new StreamReader(nombreArchivo))
+                {
                     string linea;
                     while ((linea = sr.ReadLine()) != null) {
                         string[] datosProducto = linea.Split(';'); // Suponiendo que los datos estén separados por punto y coma (;)
@@ -268,7 +269,8 @@ namespace MaquinaExpendedora___ProyectoFinal {
 
                 Console.WriteLine("Carga de productos completada correctamente.");
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 Console.WriteLine($"Error al cargar los productos desde el archivo: {ex.Message}");
             }
         }

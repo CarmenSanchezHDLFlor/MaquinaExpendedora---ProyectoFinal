@@ -100,6 +100,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
             ProcesarPago(precio, idProducto);
         }
 
+
         private void ProcesarPago(double precio, int idProducto) {
             Producto productoVendido = Listaproductos.Find(p => p.Id == idProducto);
             if (productoVendido != null) {
