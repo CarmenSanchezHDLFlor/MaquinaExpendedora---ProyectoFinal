@@ -223,25 +223,50 @@ namespace MaquinaExpendedora___ProyectoFinal {
         }
 
         // metood para cargar todos los productos de la maquina 
-        public void CargarTodosLosProductos() { // TERMINAR ESTE METODO
-            try {
+        public void CargarTodosLosProductos()
+        {
+            try
+            {
                 Console.Write("Ingrese el nombre del archivo de carga de productos: ");
                 string nombreArchivo = Console.ReadLine();
 
-                using (StreamReader sr = new StreamReader(nombreArchivo)) {
+                using (StreamReader sr = new StreamReader(nombreArchivo))
+                {
                     string linea;
-                    while ((linea = sr.ReadLine()) != null) {
+                    while ((linea = sr.ReadLine()) != null)
+                    {
+                        string[] datosProducto = linea.Split(';'); // Suponiendo que los datos estén separados por punto y coma (;)
+                        if (datosProducto.Length == 4)
+                        {
+                            string nombre = datosProducto[0];
+                            int unidades;
+                            double precioUnitario;
+                            string descripcion;
 
-
-
-
-
+                            if (int.TryParse(datosProducto[1], out unidades) &&
+                                double.TryParse(datosProducto[2], out precioUnitario))
+                            {
+                                descripcion = datosProducto[3];
+                                // Crear un nuevo producto y agregarlo a la lista de productos
+                                Producto nuevoProducto = new Producto(nombre, unidades, precioUnitario, descripcion);
+                                Listaproductos.Add(nuevoProducto);
+                            }
+                            else
+                            {
+                                Console.WriteLine("Error en el formato de datos del archivo. No se pudo cargar el producto.");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Error en el formato de datos del archivo. No se pudo cargar el producto.");
+                        }
                     }
                 }
 
                 Console.WriteLine("Carga de productos completada correctamente.");
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 Console.WriteLine($"Error al cargar los productos desde el archivo: {ex.Message}");
             }
         }
