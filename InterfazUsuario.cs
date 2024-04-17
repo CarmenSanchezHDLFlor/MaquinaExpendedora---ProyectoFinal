@@ -1,4 +1,4 @@
-﻿using MaquinaExpendedora_ProyectoFinal;
+using MaquinaExpendedora_ProyectoFinal;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -36,7 +36,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
         public InterfazUsuario(MaquinaExpendedora maquina, Usuario usuario, List<Producto> listaProductos) {
             Maquina = maquina;
             Usuario = usuario;
-            ListaProductos = listaProductos;  
+            ListaProductos = listaProductos;
             GestorCompra = new GestorCompra(ListaProductos);
         }
 
@@ -228,23 +228,34 @@ namespace MaquinaExpendedora___ProyectoFinal {
 
         // metood para cargar todos los productos de la maquina 
         public void CargarTodosLosProductos() {
-            try {
-                Console.Write("Ingrese el nombre del archivo de carga de productos: ");
-                string nombreArchivo = Console.ReadLine();
+            if (File.Exists("productos.txt")) {
+                try {
+                    using (StreamReader sr = new StreamReader("productos.txt")) {
+                        string linea;
+                        while ((linea = sr.ReadLine()) != null) {
+                            string[] datosProducto = linea.Split(';'); // Suponiendo que los datos estn separados por punto y coma (;)
+                            if (datosProducto.Length == 4) {
+                                string nombre = datosProducto[0];
+                                int unidades;
+                                double precioUnitario;
+                                string descripcion;
 
-                using (StreamReader sr = new StreamReader(nombreArchivo))
-                {
-                    string linea;
-                    while ((linea = sr.ReadLine()) != null) {
-                        string[] datosProducto = linea.Split(';'); // Suponiendo que los datos estén separados por punto y coma (;)
-                        if (datosProducto.Length == 4) {
-                            string nombre = datosProducto[0];
-                            int unidades;
-                            double precioUnitario;
-                            string descripcion;
+                                try {
+                                    unidades = int.Parse(datosProducto[1]);
+                                }
+                                catch (FormatException) {
+                                    Console.WriteLine("Error en el formato de datos del archivo. El número de unidades no es válido.");
+                                    continue;
+                                }
 
-                            if (int.TryParse(datosProducto[1], out unidades) &&
-                                double.TryParse(datosProducto[2], out precioUnitario)) {
+                                try {
+                                    precioUnitario = double.Parse(datosProducto[2]);
+                                }
+                                catch (FormatException) {
+                                    Console.WriteLine("Error en el formato de datos del archivo. El precio unitario no es válido.");
+                                    continue;
+                                }
+
                                 descripcion = datosProducto[3];
                                 // Crear un nuevo producto y agregarlo a la lista de productos
                                 Producto nuevoProducto = new Producto(nombre, unidades, precioUnitario, descripcion);
@@ -254,19 +265,18 @@ namespace MaquinaExpendedora___ProyectoFinal {
                                 Console.WriteLine("Error en el formato de datos del archivo. No se pudo cargar el producto.");
                             }
                         }
-                        else {
-                            Console.WriteLine("Error en el formato de datos del archivo. No se pudo cargar el producto.");
-                        }
+                        Console.WriteLine("Carga de productos completada correctamente.");
                     }
                 }
-
-                Console.WriteLine("Carga de productos completada correctamente.");
+                catch (Exception ex) {
+                    Console.WriteLine($"Error al cargar los productos desde el archivo: {ex.Message}");
+                }
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error al cargar los productos desde el archivo: {ex.Message}");
+            else {
+                Console.WriteLine("El archivo 'productos.txt' no existe.");
             }
         }
+
 
         // metodo para salir de la maquina ADMIN Y CLIENTE 
         public void Salir(bool esAdmin) {
