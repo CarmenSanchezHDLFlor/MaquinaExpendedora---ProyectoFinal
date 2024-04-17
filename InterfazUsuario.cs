@@ -42,31 +42,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
 
         // METODOS 
         public Producto ElegirProducto() { // TERMINAR 
-            if (ListaProductos.Count == 0) {
-                Console.WriteLine("No hay productos disponibles en nuestra maquina expendedora.");
-                return null;
-            }
-
-            MostrarProductos(Usuario.EsAdmin);
-
-            Console.Write("Seleccione el ID del producto: ");
-            int idSeleccionado;
-
-            try {
-                idSeleccionado = int.Parse(Console.ReadLine());
-            }
-            catch (FormatException) {
-                Console.WriteLine("Por favor, ingrese un numero valido.");
-                return null;  // Retorna null en caso de error
-            }
-
-            Producto productoSeleccionado = ListaProductos.Find(p => p.Id == idSeleccionado);
-            if (productoSeleccionado == null) {
-                Console.WriteLine("Producto no encontrado.");
-                return null;
-            }
-
-            return productoSeleccionado;
+            
         }
 
         // metodo para mostrar el menu de ambos usuarios
