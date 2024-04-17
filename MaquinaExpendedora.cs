@@ -10,7 +10,7 @@ namespace MaquinaExpendedora_ProyectoFinal {
     internal class MaquinaExpendedora {
 
         // PROPIEDADES
-        public List<Producto> Listaproductos { get; private set; }
+        public List<Producto> ListaProductos { get; private set; }
         public Usuario Usuario { get; private set; }
 
         // CONTRUCTOR
@@ -19,7 +19,7 @@ namespace MaquinaExpendedora_ProyectoFinal {
         // CONTRUCTOR PARAMETRIZADO
         public MaquinaExpendedora(Usuario usuario) {
             Usuario = usuario;
-            Listaproductos = new List<Producto>();
+            ListaProductos = new List<Producto>();
         }
 
     }

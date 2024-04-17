@@ -12,7 +12,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
         // PROPIEDADES 
         private MaquinaExpendedora Maquina;
         private Usuario Usuario;
-        public List<Producto> Listaproductos { get; private set; }
+        public List<Producto> ListaProductos { get; private set; }
 
         private GestorCompra GestorCompra { get; set; }
 
@@ -29,20 +29,20 @@ namespace MaquinaExpendedora___ProyectoFinal {
         public InterfazUsuario(MaquinaExpendedora maquina, Usuario usuario) {
             Maquina = maquina;
             Usuario = usuario;
-            Listaproductos = Maquina.Listaproductos;
+            ListaProductos = Maquina.ListaProductos;
         }
 
         // CONTRUCTOR PARAMETRIZADO 2
         public InterfazUsuario(MaquinaExpendedora maquina, Usuario usuario, List<Producto> listaProductos) {
             Maquina = maquina;
             Usuario = usuario;
-            Listaproductos = listaProductos;  
-            GestorCompra = new GestorCompra(Listaproductos);
+            ListaProductos = listaProductos;  
+            GestorCompra = new GestorCompra(ListaProductos);
         }
 
         // METODOS 
         public Producto ElegirProducto() { // TERMINAR 
-            if (Listaproductos.Count == 0) {
+            if (ListaProductos.Count == 0) {
                 Console.WriteLine("No hay productos disponibles en nuestra maquina expendedora.");
                 return null;
             }
@@ -60,7 +60,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
                 return null;  // Retorna null en caso de error
             }
 
-            Producto productoSeleccionado = Listaproductos.Find(p => p.Id == idSeleccionado);
+            Producto productoSeleccionado = ListaProductos.Find(p => p.Id == idSeleccionado);
             if (productoSeleccionado == null) {
                 Console.WriteLine("Producto no encontrado.");
                 return null;
@@ -87,12 +87,12 @@ namespace MaquinaExpendedora___ProyectoFinal {
 
         // metodo para mostrar los productos 
         public void MostrarProductos(bool esAdmin) {
-            if (Listaproductos.Count == 0) {
+            if (ListaProductos.Count == 0) {
                 Console.WriteLine(esAdmin ? "No hay productos disponibles en nuestra maquina expendedora." : "No hay productos disponibles para su cuenta de cliente.");
                 return;
             }
 
-            foreach (Producto p in Listaproductos) {
+            foreach (Producto p in ListaProductos) {
                 p.MostrarInformacion();
                 Console.WriteLine();
             }
@@ -101,7 +101,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
         // metodo para comprar producto
         public void ComprarProducto(int idProducto) {
             Producto producto = ElegirProducto();
-            foreach (Producto p in Listaproductos) {
+            foreach (Producto p in ListaProductos) {
                 if (p.Id == idProducto) {
                     producto = p;
                     break;
@@ -175,7 +175,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
                         }
 
                         // Buscar el producto por su ID
-                        Producto productoExistente = Listaproductos.Find(p => p.Id == idProductoExistente);
+                        Producto productoExistente = ListaProductos.Find(p => p.Id == idProductoExistente);
 
                         if (productoExistente == null) {
                             Console.WriteLine("No se ha encontrado ningun producto con el ID introducido.");
@@ -232,11 +232,11 @@ namespace MaquinaExpendedora___ProyectoFinal {
                         string descripcion = Console.ReadLine();
 
                         // Generar un nuevo ID para el producto
-                        int nuevoId = Listaproductos.Any() ? Listaproductos.Max(p => p.Id) + 1 : 1;
+                        int nuevoId = ListaProductos.Any() ? ListaProductos.Max(p => p.Id) + 1 : 1;
 
                         // Crear el nuevo producto y agregarlo a la lista de productos
                         Producto nuevoProducto = new Producto(nombre, unidades, precioUnitario, descripcion) { Id = nuevoId };
-                        Listaproductos.Add(nuevoProducto);
+                        ListaProductos.Add(nuevoProducto);
                         Console.WriteLine("Nuevo producto ha sido agregado correctamente.");
                         break;
 
@@ -272,7 +272,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
                                 descripcion = datosProducto[3];
                                 // Crear un nuevo producto y agregarlo a la lista de productos
                                 Producto nuevoProducto = new Producto(nombre, unidades, precioUnitario, descripcion);
-                                Listaproductos.Add(nuevoProducto);
+                                ListaProductos.Add(nuevoProducto);
                             }
                             else {
                                 Console.WriteLine("Error en el formato de datos del archivo. No se pudo cargar el producto.");

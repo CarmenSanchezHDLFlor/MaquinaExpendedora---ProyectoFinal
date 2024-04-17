@@ -7,14 +7,14 @@ namespace MaquinaExpendedora___ProyectoFinal {
     internal class GestorCompra {
 
         // PROPIEDADES
-        private List<Producto> Listaproductos;
+        private List<Producto> ListaProductos;
 
         // CONSTRUCTORES
         public GestorCompra() { }
 
         // CONTRUCTOR PARAMETRIZADO
         public GestorCompra(List<Producto> productos) {
-            Listaproductos = productos;
+            ListaProductos = productos;
         }
 
         // METODOS
@@ -102,7 +102,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
 
 
         private void ProcesarPago(double precio, int idProducto) {
-            Producto productoVendido = Listaproductos.Find(p => p.Id == idProducto);
+            Producto productoVendido = ListaProductos.Find(p => p.Id == idProducto);
             if (productoVendido != null) {
                 productoVendido.Vendido = true;
                 productoVendido.Unidades--;

@@ -23,7 +23,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
         protected MaquinaExpendedora Maquina { get; set; }
 
         // PROPIEDADES PARA ADMIN 
-        protected List<Producto> Listaproductos;
+        protected List<Producto> ListaProductos;
         protected InterfazUsuario InterfazUsuario { get; set; }
 
         // PROPIEDAD PARA EL ADMIN
@@ -80,7 +80,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
                                 try {
                                     idProductoAComprar = int.Parse(Console.ReadLine());
                                     Producto producto = null;
-                                    foreach (Producto p in Listaproductos) {
+                                    foreach (Producto p in ListaProductos) {
                                         if (p.Id == idProductoAComprar) {
                                             producto = p;
                                             break;
@@ -136,7 +136,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
                             try {
                                 idProductoAComprar = int.Parse(Console.ReadLine());
                                 Producto producto = null;
-                                foreach (Producto p in Listaproductos) {
+                                foreach (Producto p in ListaProductos) {
                                     if (p.Id == idProductoAComprar) {
                                         producto = p;
                                         break;
