@@ -11,10 +11,10 @@ namespace MaquinaExpendedora_ProyectoFinal {
 
         // PROPIEDADES
         public List<Producto> Listaproductos { get; private set; }
-        public MaquinaExpendedora Maquina;
-
-        // CONSTRUCTORES
         public Usuario Usuario { get; private set; }
+
+        // CONTRUCTOR
+        public MaquinaExpendedora() { }
 
         // CONTRUCTOR PARAMETRIZADO
         public MaquinaExpendedora(Usuario usuario) {

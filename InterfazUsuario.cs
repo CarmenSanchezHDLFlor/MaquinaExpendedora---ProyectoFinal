@@ -42,15 +42,32 @@ namespace MaquinaExpendedora___ProyectoFinal {
 
         // METODOS 
         public Producto ElegirProducto() { // TERMINAR 
+            if (Listaproductos.Count == 0) {
+                Console.WriteLine("No hay productos disponibles en nuestra maquina expendedora.");
+                return null;
+            }
 
+            MostrarProductos(Usuario.EsAdmin);
 
+            Console.Write("Seleccione el ID del producto: ");
+            int idSeleccionado;
 
+            try {
+                idSeleccionado = int.Parse(Console.ReadLine());
+            }
+            catch (FormatException) {
+                Console.WriteLine("Por favor, ingrese un numero valido.");
+                return null;  // Retorna null en caso de error
+            }
 
-            return  ;
+            Producto productoSeleccionado = Listaproductos.Find(p => p.Id == idSeleccionado);
+            if (productoSeleccionado == null) {
+                Console.WriteLine("Producto no encontrado.");
+                return null;
+            }
+
+            return productoSeleccionado;
         }
-
-
-
 
         // metodo para mostrar el menu de ambos usuarios
         public void MostrarMenuPrincipal() {
@@ -126,12 +143,12 @@ namespace MaquinaExpendedora___ProyectoFinal {
         }
 
         // metodo aux para realizar el pago efectivo de la compra
-        public void PagoEfectivo(double precio, int idProducto) {
+        private void PagoEfectivo(double precio, int idProducto) {
             GestorCompra.PagoEfectivo(precio, idProducto);
         }
 
         // metodo aux para realizar el pago con tarjeta de la compra
-        public void PagoTarjeta(double precio, int idProducto) {
+        private void PagoTarjeta(double precio, int idProducto) {
             GestorCompra.PagoTarjeta(precio, idProducto);
         }
 
@@ -272,22 +289,6 @@ namespace MaquinaExpendedora___ProyectoFinal {
             catch (Exception ex)
             {
                 Console.WriteLine($"Error al cargar los productos desde el archivo: {ex.Message}");
-            }
-        }
-
-        // metodo para salir de la maquina PRODUCTO
-        public void Salir() {
-            string filePath = "productos.txt";
-            try {
-                using (StreamWriter sw = new StreamWriter(filePath)) {
-                    foreach (Producto producto in Listaproductos) {
-                        sw.WriteLine(producto.Nombre);
-                    }
-                }
-                Console.WriteLine("Los productos han sido guardados en el archivo.");
-            }
-            catch (Exception ex) {
-                Console.WriteLine($"Error al guardar los productos: {ex.Message}");
             }
         }
 

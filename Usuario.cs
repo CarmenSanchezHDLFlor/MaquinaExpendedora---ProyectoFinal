@@ -24,11 +24,10 @@ namespace MaquinaExpendedora___ProyectoFinal {
 
         // PROPIEDADES PARA ADMIN 
         protected List<Producto> Listaproductos;
-        InterfazUsuario InterfazUsuario = new InterfazUsuario();
+        protected InterfazUsuario InterfazUsuario { get; set; }
 
         // PROPIEDAD PARA EL ADMIN
         public string ClaveAdmin { get; private set; }
-
 
         // CONSTRUCTOR
         public Usuario() { }
