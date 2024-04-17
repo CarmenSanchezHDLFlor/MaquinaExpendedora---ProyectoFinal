@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MaquinaExpendedora___ProyectoFinal {
-    internal abstract class Usuario {
+    internal class Usuario {
 
         // PROPIEDADES
         public string NickName { get; private set; }
