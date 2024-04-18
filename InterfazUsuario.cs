@@ -41,7 +41,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
         }
 
         // METODOS 
-        public Producto ElegirProducto() { 
+        public Producto ElegirProducto(int idSeleccionado) { 
             if (ListaProductos.Count == 0) {
                 Console.WriteLine("No hay productos disponibles en nuestra maquina expendedora.");
                 return null;
@@ -50,7 +50,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
             MostrarProductos(Usuario.EsAdmin);
         
             Console.Write("Seleccione el ID del producto: ");
-            int idSeleccionado;
+            
         
             try {
                 idSeleccionado = int.Parse(Console.ReadLine());
@@ -100,7 +100,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
 
         // metodo para comprar producto
         public void ComprarProducto(int idProducto) {
-            Producto producto = ElegirProducto();
+            Producto producto = ElegirProducto(idProducto);
             foreach (Producto p in ListaProductos) {
                 if (p.Id == idProducto) {
                     producto = p;
