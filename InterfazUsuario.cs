@@ -41,8 +41,18 @@ namespace MaquinaExpendedora___ProyectoFinal {
         }
 
         // METODOS 
-        public Producto ElegirProducto() { // TERMINAR 
-            
+        public Producto ElegirProducto(int idProducto) { // REVISAR
+            int idElegido = 0;
+            Console.Write("Introduce el ID del producto: ");
+            idElegido=int.Parse(Console.ReadLine());
+            foreach(Producto p in ListaProductos)
+            {
+                if(idElegido== idProducto)
+                {
+                    return p;
+                }                
+            }
+            return null;
         }
 
         // metodo para mostrar el menu de ambos usuarios
