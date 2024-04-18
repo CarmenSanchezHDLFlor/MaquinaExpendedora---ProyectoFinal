@@ -301,34 +301,44 @@ namespace MaquinaExpendedora___ProyectoFinal {
             }
         }
 
-
         // metodo para salir de la maquina ADMIN Y CLIENTE 
-        public void Salir(bool esAdmin) {
-            if (esAdmin) {
+        public void Salir(bool esAdmin)
+        {
+            if (esAdmin)
+            {
                 string filePath = "usuarios_admin.txt";
-                try {
-                    using (StreamWriter sw = new StreamWriter(filePath)) {
-                        foreach (Usuario a in ListaUsuariosAdmin) {
+                try
+                {
+                    using (StreamWriter sw = new StreamWriter(filePath))
+                    {
+                        foreach (Usuario a in ListaUsuariosAdmin)
+                        {
                             sw.WriteLine(a.Nombre);
                         }
                     }
                     Console.WriteLine("Los IDs de los usuarios admin han sido guardados en el archivo.");
                 }
-                catch (Exception ex) {
+                catch (Exception ex)
+                {
                     Console.WriteLine($"Error al guardar los IDs de los usuarios admin: {ex.Message}");
                 }
             }
-            else {
+            else
+            {
                 string filePath = "usuarios_cliente.txt";
-                try {
-                    using (StreamWriter sw = new StreamWriter(filePath)) {
-                        foreach (Usuario cliente in ListaUsuariosCliente) {
+                try
+                {
+                    using (StreamWriter sw = new StreamWriter(filePath))
+                    {
+                        foreach (Usuario cliente in ListaUsuariosCliente)
+                        {
                             sw.WriteLine(cliente.Nombre);
                         }
                     }
                     Console.WriteLine("Los IDs de los usuarios cliente han sido guardados en el archivo.");
                 }
-                catch (Exception ex) {
+                catch (Exception ex)
+                {
                     Console.WriteLine($"Error al guardar los IDs de los usuarios cliente: {ex.Message}");
                 }
             }
