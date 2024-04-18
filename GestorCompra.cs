@@ -6,7 +6,7 @@ using System.Linq;
 namespace MaquinaExpendedora___ProyectoFinal {
     internal class GestorCompra {
 
-        // PROPIEDADES
+        // PROPIEDADES 
         private List<Producto> ListaProductos;
 
         // CONSTRUCTORES
