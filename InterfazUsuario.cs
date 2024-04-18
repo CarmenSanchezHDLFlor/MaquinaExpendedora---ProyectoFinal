@@ -41,7 +41,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
         }
 
         // METODOS 
-        public Producto ElegirProducto() { // TERMINAR 
+        public Producto ElegirProducto() { 
             if (ListaProductos.Count == 0) {
                 Console.WriteLine("No hay productos disponibles en nuestra maquina expendedora.");
                 return null;
