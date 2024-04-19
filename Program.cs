@@ -21,9 +21,8 @@ namespace MaquinaExpendedora_ProyectoFinal {
             GestorCompra g = new GestorCompra();
             InterfazUsuario usuario = new InterfazUsuario();
 
-            
             int opcion = 0;
-            //hay un método de menú, ver como ajustar
+            //hay un método de menú, ver cómo ajustar
             Console.WriteLine("1.Comprar Productos");
             Console.WriteLine("2.Información de Productos");
             Console.WriteLine("3.Cargar Producto");
@@ -32,14 +31,14 @@ namespace MaquinaExpendedora_ProyectoFinal {
             opcion = int.Parse(Console.ReadLine());
 
             switch (opcion) {
-                case 1: //No está hecho exactamente igual a como se pide en el diagrama de flujo del guión
-                    string otro="S";
-                    
+                case 1: // No está hecho exactamente igual a como se pide en el diagrama de flujo del guión
+                    string otro = "S";
+
                     do
-                    {                 
+                    {
                         Console.WriteLine("Introduce la Id del producto: ");
-                        int idProducto_compra=int.Parse(Console.ReadLine());
-                        InterfazUsuario productoElegido_compra= new InterfazUsuario();
+                        int idProducto_compra = int.Parse(Console.ReadLine());
+                        InterfazUsuario productoElegido_compra = new InterfazUsuario();
                         Producto elegido_compra = productoElegido_compra.ElegirProducto(idProducto_compra);
 
                         if (elegido_compra != null)
@@ -51,12 +50,12 @@ namespace MaquinaExpendedora_ProyectoFinal {
                         else
                         {
                             Console.WriteLine("Producto no encontrado");
-                        }                      
+                        }
 
                         Console.Write("Quieres elegir otro producto? (S/N)");
                         otro = Console.ReadLine().ToUpper();
                     } while (otro != "N");
-                    
+
                     break;
                 case 2:
                     Console.WriteLine("Introduce la Id del producto: ");
@@ -70,7 +69,7 @@ namespace MaquinaExpendedora_ProyectoFinal {
                         {
                             elegido_info.MostrarInformacion();
                         }
-                        else if(elegido_info is ProductosElectronicos)
+                        else if (elegido_info is ProductosElectronicos)
                         {
                             elegido_info.MostrarInformacion();
                         }
@@ -86,15 +85,15 @@ namespace MaquinaExpendedora_ProyectoFinal {
                     break;
                 case 4:
                     Console.WriteLine("TODOS LOS PRODUCTOS:");
-                    InterfazUsuario TodosProductos= new InterfazUsuario();
+                    InterfazUsuario TodosProductos = new InterfazUsuario();
                     TodosProductos.CargarTodosLosProductos();
                     break;
-                case 5: //¿por qué se pregunta si es admin al salir?
+                case 5: // ¿Por qué se pregunta si es admin al salir?
                     string respuesta = "N";
                     Console.WriteLine("Eres Admin (S/N): ");
                     respuesta = Console.ReadLine().ToUpper();
                     bool admin = false;
-                    if(respuesta != "N")
+                    if (respuesta != "N")
                     {
                         admin = true;
                         InterfazUsuario serAdmin = new InterfazUsuario();
