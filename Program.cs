@@ -88,7 +88,7 @@ namespace MaquinaExpendedora_ProyectoFinal {
                     InterfazUsuario TodosProductos = new InterfazUsuario();
                     TodosProductos.CargarTodosLosProductos();
                     break;
-                case 5: // CAMBIAR A PREGUNTAR SI ES ADMIN AL ENTRAR
+                case 5: 
                     string respuesta = "N";
                     Console.WriteLine("Eres Admin (S/N): ");
                     respuesta = Console.ReadLine().ToUpper();
