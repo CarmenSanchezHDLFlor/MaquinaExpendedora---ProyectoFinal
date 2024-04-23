@@ -18,10 +18,12 @@ namespace MaquinaExpendedora___ProyectoFinal {
         }
 
         // METODOS
+        // Método para iniciar el proceso de compra
         public void IniciarCompra(double precio, int idProducto) {
             SeleccionarMetodoPago(precio, idProducto);
         }
 
+        // Método para seleccionar el método de pago (efectivo o tarjeta)
         private void SeleccionarMetodoPago(double precio, int idProducto) {
             Console.WriteLine("Selecciona el metodo de pago:");
             Console.WriteLine("1. Pago en efectivo");
@@ -41,6 +43,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
             }
         }
 
+        // Método para realizar el pago en efectivo
         public void PagoEfectivo(double precio, int idProducto) {
             Console.WriteLine("Pago en efectivo seleccionado.");
 
@@ -56,11 +59,13 @@ namespace MaquinaExpendedora___ProyectoFinal {
             ProcesarPago(precio, idProducto);
         }
 
+        // Método para solicitar la cantidad pagada en efectivo
         private double PedirCantidadPagada(double precio) {
             Console.WriteLine($"Inserte ${precio} en efectivo:");
             return double.Parse(Console.ReadLine());
         }
 
+        // Método para calcular el cambio
         private double CalcularCambio(double cantidadPagada, double precio) {
             return cantidadPagada - precio;
         }
