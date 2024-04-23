@@ -271,7 +271,11 @@ namespace MaquinaExpendedora___ProyectoFinal {
             return productosCargados;
         }
 
-
+        // Llama al método que carga todos los productos
+        public void CargaCompletaProductos()
+        {
+            CargaTodosLosProductos();
+        }
 
         // metodo para salir de la maquina ADMIN Y CLIENTE 
         public void Salir(bool esAdmin) {
