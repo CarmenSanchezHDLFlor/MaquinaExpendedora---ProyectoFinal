@@ -242,7 +242,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
                         string linea;
                         while ((linea = sr.ReadLine()) != null) {
                             string[] datosProducto = linea.Split(';'); // Suponiendo que los datos estn separados por punto y coma (;)
-                            if (datosProducto.Length == 4) {
+                            if (datosProducto.Length == 6) {
                                 string nombre = datosProducto[0];
                                 int unidades;
                                 double precioUnitario;
