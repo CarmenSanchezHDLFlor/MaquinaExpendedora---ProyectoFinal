@@ -23,6 +23,8 @@ namespace MaquinaExpendedora_ProyectoFinal {
         public int Id {  get; set; }
         public bool Vendido {  get; set; }
 
+        public TipoProducto Tipo;
+
         // CONTRUCTORES 
         public Producto() { }
 
@@ -43,6 +45,34 @@ namespace MaquinaExpendedora_ProyectoFinal {
             Vendido = vendido;
         }
 
+        public Producto(int id, string nombre,TipoProducto tipo, string descripcion, int unidades, bool vendido) {
+            Id = id;
+            Nombre = nombre;
+            Tipo = tipo;
+            Descripcion = descripcion;
+            Unidades = unidades;
+            Vendido = vendido;
+        }
+
+        public Producto(int id, string nombre, int unidades, double precioUnitario, string descripcion) {
+            Id = id;
+            Nombre = nombre;
+            Unidades = unidades;
+            PrecioUnitario = precioUnitario;
+            Descripcion = descripcion;
+        }
+
+        // este se usa en interfazUsuario para cargar los productos 
+        public Producto(int id, string nombre, TipoProducto tipo, string descripcion, int unidades, double precioUnitario) {
+            Id = id;
+            Nombre = nombre;
+            Tipo = tipo;
+            Descripcion = descripcion;
+            Unidades = unidades;
+            PrecioUnitario = precioUnitario;
+        }
+
+
         // METODOS
         // metodo para mostrar informacion de cada producto
         public virtual void MostrarInformacion() {
@@ -62,5 +92,8 @@ namespace MaquinaExpendedora_ProyectoFinal {
             Vendido = true;
         }
 
+        public override string ToString() {
+            return $"ID: {Id}, Nombre: {Nombre}, Tipo: {Tipo}, Unidades: {Unidades}, Precio: ${PrecioUnitario}, Descripción: {Descripcion}, Vendido: {(Vendido ? "Sí" : "No")}";
+        }
     }
 }

@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static MaquinaExpendedora_ProyectoFinal.Producto;
 
 namespace MaquinaExpendedora___ProyectoFinal {
     internal class InterfazUsuario {
@@ -12,7 +13,9 @@ namespace MaquinaExpendedora___ProyectoFinal {
         // PROPIEDADES 
         private MaquinaExpendedora Maquina;
         private Usuario Usuario;
-        public List<Producto> ListaProductos { get; private set; }
+        //public List<Producto> ListaProductos { get; private set; }
+        public List<Producto> ListaProductos { get; set; } = new List<Producto>();
+
 
         private GestorCompra GestorCompra { get; set; }
 
@@ -36,31 +39,19 @@ namespace MaquinaExpendedora___ProyectoFinal {
         public InterfazUsuario(MaquinaExpendedora maquina, Usuario usuario, List<Producto> listaProductos) {
             Maquina = maquina;
             Usuario = usuario;
-            ListaProductos = listaProductos;  
+            ListaProductos = listaProductos;
             GestorCompra = new GestorCompra(ListaProductos);
         }
 
         // METODOS 
-        public Producto ElegirProducto() { // TERMINAR 
-            if (ListaProductos.Count == 0) {
-                Console.WriteLine("No hay productos disponibles en nuestra maquina expendedora.");
-                return null;
-            }
+        public Producto ElegirProducto(int idSeleccionado) {
+            CargaIndividualProductos();
+            MostrarProductos();
 
-            MostrarProductos(Usuario.EsAdmin);
-
-            Console.Write("Seleccione el ID del producto: ");
-            int idSeleccionado;
-
-            try {
-                idSeleccionado = int.Parse(Console.ReadLine());
-            }
-            catch (FormatException) {
-                Console.WriteLine("Por favor, ingrese un numero valido.");
-                return null;  // Retorna null en caso de error
-            }
+            Console.WriteLine($"Seleccionando producto con ID: {idSeleccionado}");
 
             Producto productoSeleccionado = ListaProductos.Find(p => p.Id == idSeleccionado);
+
             if (productoSeleccionado == null) {
                 Console.WriteLine("Producto no encontrado.");
                 return null;
@@ -69,29 +60,8 @@ namespace MaquinaExpendedora___ProyectoFinal {
             return productoSeleccionado;
         }
 
-        // metodo para mostrar el menu de ambos usuarios
-        public void MostrarMenuPrincipal() {
-            Console.WriteLine("--- Menu ---");
-            if (Maquina.Usuario.EsAdmin) {
-                Console.WriteLine("1. Carga individual la maquina con productos.");
-                Console.WriteLine("2. Carga completa de los productos de la maquina.");
-                Console.WriteLine("3. Mostrar todos los productos de la maquina.");
-                Console.WriteLine("4. Salir.");
-            }
-            else {
-                Console.WriteLine("1. Comprar productos.");
-                Console.WriteLine("2. Mostrar los productos disponibles.");
-                Console.WriteLine("3. Salir de la maquina.");
-            }
-        }
-
         // metodo para mostrar los productos 
-        public void MostrarProductos(bool esAdmin) {
-            if (ListaProductos.Count == 0) {
-                Console.WriteLine(esAdmin ? "No hay productos disponibles en nuestra maquina expendedora." : "No hay productos disponibles para su cuenta de cliente.");
-                return;
-            }
-
+        public void MostrarProductos() {
             foreach (Producto p in ListaProductos) {
                 p.MostrarInformacion();
                 Console.WriteLine();
@@ -100,7 +70,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
 
         // metodo para comprar producto
         public void ComprarProducto(int idProducto) {
-            Producto producto = ElegirProducto();
+            Producto producto = ElegirProducto(idProducto);
             foreach (Producto p in ListaProductos) {
                 if (p.Id == idProducto) {
                     producto = p;
@@ -117,9 +87,6 @@ namespace MaquinaExpendedora___ProyectoFinal {
                 Console.WriteLine("No tenemos el producto en stock.");
                 return;
             }
-
-            //Console.WriteLine($"Has comprado {producto.Nombre} por {producto.PrecioUnitario}.");
-            //producto.Unidades--;
 
             Console.WriteLine($"Has seleccionado {producto.Nombre}.");
             Console.WriteLine($"Precio Unitario: {producto.PrecioUnitario}");
@@ -153,176 +120,191 @@ namespace MaquinaExpendedora___ProyectoFinal {
         }
 
         // metodo para cargar individualmente los productos de la maquina 
-        public void CargaIndividualProductos() {
-            // Si es un administrador...
-            if (Usuario.EsAdmin) {
-                Console.WriteLine("Selecciona una opcion:");
-                Console.WriteLine("1. Añadir existencias a un producto existente.");
-                Console.WriteLine("2. Añadir un nuevo producto.");
+        public bool CargaIndividualProductos() {
+            bool productosCargados = false;
 
-                int opcion = int.Parse(Console.ReadLine());
+            if (File.Exists("productos.txt")) {
+                StreamReader sr = new StreamReader("productos.txt");
+                string linea;
 
-                switch (opcion) {
-                    case 1:
-                        int idProductoExistente;
-                        string inputIdProducto = Console.ReadLine();
-                        try {
-                            idProductoExistente = int.Parse(inputIdProducto);
-                        }
-                        catch (FormatException) {
-                            Console.WriteLine("ID de producto invalido.");
-                            return;
-                        }
+                while ((linea = sr.ReadLine()) != null) {
+                    productosCargados = true;
+                    string[] datos = linea.Split('|');
 
-                        // Buscar el producto por su ID
-                        Producto productoExistente = ListaProductos.Find(p => p.Id == idProductoExistente);
+                    if (datos.Length >= 7) {
+                        int id = int.Parse(datos[0]);
+                        string nombre = datos[1];
+                        string tipoString = datos[2];
+                        double precioUnitario = double.Parse(datos[5]);
+                        string descripcion = datos[3];
+                        int unidades = int.Parse(datos[4]);
 
-                        if (productoExistente == null) {
-                            Console.WriteLine("No se ha encontrado ningun producto con el ID introducido.");
-                            return;
-                        }
-
-                        // Solicitar la cantidad de unidades a añadir
-                        Console.Write("Ingrese la cantidad de unidades a añadir: ");
-                        string inputUnidadesAAnadir = Console.ReadLine();
-                        int unidadesAAnadir;
-
-                        try {
-                            unidadesAAnadir = int.Parse(inputUnidadesAAnadir);
-                        }
-                        catch (FormatException) {
-                            Console.WriteLine("Cantidad invalida.");
-                            return;
-                        }
-
-                        // Añadir las unidades al producto existente
-                        productoExistente.Unidades += unidadesAAnadir;
-                        Console.WriteLine($"Se han añadido {unidadesAAnadir} unidades al producto '{productoExistente.Nombre}'.");
-                        break;
-
-                    case 2:
-                        // Añadir un nuevo producto
-                        Console.WriteLine("Ingrese los detalles del nuevo producto:");
-                        Console.Write("Nombre: ");
-                        string nombre = Console.ReadLine();
-
-                        int unidades;
-                        while (true) {
-                            Console.Write("Unidades: ");
-                            try {
-                                unidades = int.Parse(Console.ReadLine());
-                                break;
-                            }
-                            catch (FormatException) {
-                                Console.WriteLine("Cantidad invalida. Por favor, ingrese un numero entero.");
-                            }
-                        }
-                        double precioUnitario;
-                        while (true) {
-                            Console.Write("Precio Unitario: ");
-                            try {
-                                precioUnitario = double.Parse(Console.ReadLine());
-                                break;
-                            }
-                            catch (FormatException) {
-                                Console.WriteLine("Precio invalido. Por favor, ingrese un numero decimal.");
-                            }
-                        }
-                        Console.Write("Descripcion: ");
-                        string descripcion = Console.ReadLine();
-
-                        // Generar un nuevo ID para el producto
-                        int nuevoId = ListaProductos.Any() ? ListaProductos.Max(p => p.Id) + 1 : 1;
-
-                        // Crear el nuevo producto y agregarlo a la lista de productos
-                        Producto nuevoProducto = new Producto(nombre, unidades, precioUnitario, descripcion) { Id = nuevoId };
-                        ListaProductos.Add(nuevoProducto);
-                        Console.WriteLine("Nuevo producto ha sido agregado correctamente.");
-                        break;
-
-                    default:
-                        Console.WriteLine("Opcion invalida");
-                        break;
-                }
-            }
-            else {
-                Console.WriteLine("No tiene permisos de administrador para realizar esta accion.");
-            }
-        }
-
-        // metood para cargar todos los productos de la maquina 
-        public void CargarTodosLosProductos() {
-            try {
-                Console.Write("Ingrese el nombre del archivo de carga de productos: ");
-                string nombreArchivo = Console.ReadLine();
-
-                using (StreamReader sr = new StreamReader(nombreArchivo))
-                {
-                    string linea;
-                    while ((linea = sr.ReadLine()) != null) {
-                        string[] datosProducto = linea.Split(';'); // Suponiendo que los datos estén separados por punto y coma (;)
-                        if (datosProducto.Length == 4) {
-                            string nombre = datosProducto[0];
-                            int unidades;
-                            double precioUnitario;
-                            string descripcion;
-
-                            if (int.TryParse(datosProducto[1], out unidades) &&
-                                double.TryParse(datosProducto[2], out precioUnitario)) {
-                                descripcion = datosProducto[3];
-                                // Crear un nuevo producto y agregarlo a la lista de productos
-                                Producto nuevoProducto = new Producto(nombre, unidades, precioUnitario, descripcion);
-                                ListaProductos.Add(nuevoProducto);
-                            }
-                            else {
-                                Console.WriteLine("Error en el formato de datos del archivo. No se pudo cargar el producto.");
+                        if (Enum.TryParse(tipoString, out TipoProducto tipoProducto)) {
+                            switch (tipoProducto) {
+                                case TipoProducto.ProductosAlimenticios:
+                                    string informacionNutricional = datos[6];
+                                    ProductosAlimenticios productoA = new ProductosAlimenticios(id, nombre, unidades, precioUnitario, descripcion, informacionNutricional);
+                                    ListaProductos.Add(productoA);
+                                    break;
+                                case TipoProducto.ProductosElectronicos:
+                                    string tipoMaterial = datos[6];
+                                    bool tieneBateria = bool.Parse(datos[7]);
+                                    bool precargado = bool.Parse(datos[8]);
+                                    ProductosElectronicos productoE = new ProductosElectronicos(id, nombre, unidades, precioUnitario, descripcion, tipoMaterial, tieneBateria, precargado);
+                                    ListaProductos.Add(productoE);
+                                    break;
+                                case TipoProducto.MaterialesPreciosos:
+                                    string tipoMaterialM = datos[3]; 
+                                    double peso = double.Parse(datos[6]);
+                                    MaterialesPreciosos productoM = new MaterialesPreciosos(id, nombre, unidades, precioUnitario, descripcion, tipoMaterialM, peso);
+                                    ListaProductos.Add(productoM);
+                                    break;
                             }
                         }
                         else {
-                            Console.WriteLine("Error en el formato de datos del archivo. No se pudo cargar el producto.");
+                            Console.WriteLine("Error: tipo de producto no reconocido.");
                         }
+                    }
+                    else {
+                        Console.WriteLine("Error: linea con formato incorrecto.");
+                    }
+                }
+                sr.Close();
+            }
+            else {
+                Console.WriteLine("El archivo 'productos.txt' no existe.");
+            }
+
+            return productosCargados;
+        }
+
+        public bool CargaCompletaProductos() {
+            bool productosCargados = false;
+
+            if (File.Exists("productos.txt")) {
+                StreamReader sr = new StreamReader("productos.txt");
+                string linea;
+
+                while ((linea = sr.ReadLine()) != null) {
+                    productosCargados = true;
+                    string[] datos = linea.Split('|');
+
+                    int id;
+                    string nombre;
+                    TipoProducto tipoProducto;
+                    string descripcion;
+                    int unidades;
+                    double precioUnitario;
+
+                    try {
+                        id = int.Parse(datos[0]);
+                        nombre = datos[1];
+                        Enum.TryParse(datos[2], out tipoProducto);
+                        descripcion = datos[3];
+                        unidades = int.Parse(datos[4]);
+                        precioUnitario = double.Parse(datos[5]);
+
+                        switch (tipoProducto) {
+                            case TipoProducto.ProductosAlimenticios:
+                                if (datos.Length >= 7) {
+                                    string informacionNutricional = datos[6];
+                                    ProductosAlimenticios productoA = new ProductosAlimenticios(id, nombre, unidades, precioUnitario, descripcion, informacionNutricional);
+                                    ListaProductos.Add(productoA);
+                                }
+                                else {
+                                    Console.WriteLine($"Error: Informacion incompleta para el producto alimenticio con ID {id}.");
+                                }
+                                break;
+                            case TipoProducto.ProductosElectronicos:
+                                if (datos.Length >= 9) {
+                                    string tipoMaterial = datos[3];
+                                    bool tieneBateria;
+                                    bool precargado;
+
+                                    if (bool.TryParse(datos[6], out tieneBateria) && bool.TryParse(datos[7], out precargado)) {
+                                        ProductosElectronicos productoE = new ProductosElectronicos(id, nombre, unidades, precioUnitario, descripcion, tipoMaterial, tieneBateria, precargado);
+                                        ListaProductos.Add(productoE);
+                                    }
+                                    else {
+                                        Console.WriteLine($"Error: Formato incorrecto para los campos de productos electronicos con ID {id}.");
+                                    }
+                                }
+                                else {
+                                    Console.WriteLine($"Error: Informacion incompleta para el producto electronico con ID {id}.");
+                                }
+                                break;
+                            case TipoProducto.MaterialesPreciosos:
+                                string tipoMaterialM = datos[3]; 
+                                if (datos.Length >= 7) {
+                                    double peso;
+
+                                    if (double.TryParse(datos[6], out peso)) {
+                                        MaterialesPreciosos productoM = new MaterialesPreciosos(id, nombre, unidades, precioUnitario, descripcion, tipoMaterialM, peso);
+                                        ListaProductos.Add(productoM);
+                                    }
+                                    else {
+                                        Console.WriteLine($"Error: Formato incorrecto para el peso del material precioso con ID {id}.");
+                                    }
+                                }
+                                else {
+                                    Console.WriteLine($"Error: Informacion incompleta para el material precioso con ID {id}.");
+                                }
+                                break;
+                            default:
+                                Console.WriteLine($"Error: Tipo de producto no reconocido para el producto con ID {id}.");
+                                break;
+                        }
+                    }
+                    catch (FormatException) {
+                        Console.WriteLine($"Error: Formato incorrecto en la linea {linea}");
+                        continue;
                     }
                 }
 
-                Console.WriteLine("Carga de productos completada correctamente.");
+                sr.Close();
+                Console.WriteLine("Productos cargados exitosamente.");
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error al cargar los productos desde el archivo: {ex.Message}");
+            else {
+                Console.WriteLine("El archivo 'productos.txt' no existe.");
             }
+
+            return productosCargados;
         }
+
+
 
         // metodo para salir de la maquina ADMIN Y CLIENTE 
         public void Salir(bool esAdmin) {
-            if (esAdmin) {
-                string filePath = "usuarios_admin.txt";
-                try {
-                    using (StreamWriter sw = new StreamWriter(filePath)) {
-                        foreach (Usuario a in ListaUsuariosAdmin) {
-                            sw.WriteLine(a.Nombre);
-                        }
+        if (esAdmin) {
+            string filePath = "usuarios_admin.txt";
+            try {
+                using (StreamWriter sw = new StreamWriter(filePath)) {
+                    foreach (Usuario a in ListaUsuariosAdmin) {
+                        sw.WriteLine(a.Nombre);
                     }
-                    Console.WriteLine("Los IDs de los usuarios admin han sido guardados en el archivo.");
+                    sw.Close();
                 }
-                catch (Exception ex) {
-                    Console.WriteLine($"Error al guardar los IDs de los usuarios admin: {ex.Message}");
-                }
+                Console.WriteLine("Los IDs de los usuarios admin han sido guardados en el archivo.");
             }
-            else {
-                string filePath = "usuarios_cliente.txt";
-                try {
-                    using (StreamWriter sw = new StreamWriter(filePath)) {
-                        foreach (Usuario cliente in ListaUsuariosCliente) {
-                            sw.WriteLine(cliente.Nombre);
-                        }
+            catch (Exception ex) {
+                Console.WriteLine($"Error al guardar los IDs de los usuarios admin: {ex.Message}");
+            }
+        }
+        else {
+            string filePath = "usuarios_cliente.txt";
+            try {
+                using (StreamWriter sw = new StreamWriter(filePath)) {
+                    foreach (Usuario cliente in ListaUsuariosCliente) {
+                        sw.WriteLine(cliente.Nombre);
                     }
-                    Console.WriteLine("Los IDs de los usuarios cliente han sido guardados en el archivo.");
+                    sw.Close();
                 }
-                catch (Exception ex) {
-                    Console.WriteLine($"Error al guardar los IDs de los usuarios cliente: {ex.Message}");
-                }
+                Console.WriteLine("Los IDs de los usuarios cliente han sido guardados en el archivo.");
+            }
+            catch (Exception ex) {
+                Console.WriteLine($"Error al guardar los IDs de los usuarios cliente: {ex.Message}");
             }
         }
     }
 }
-
+}

@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MaquinaExpendedora___ProyectoFinal {
-    internal abstract class Usuario {
+    internal class Usuario {
 
         // PROPIEDADES
         public string NickName { get; private set; }
@@ -43,6 +43,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
             EsAdmin = esAdmin;
             Maquina = maquina;
             ClaveAdmin = claveAdmin;
+            ListaProductos = new List<Producto>();
         }
 
         // METODOS
@@ -101,10 +102,10 @@ namespace MaquinaExpendedora___ProyectoFinal {
                                 InterfazUsuario.CargaIndividualProductos();
                                 break;
                             case 3:
-                                InterfazUsuario.CargarTodosLosProductos();
+                                InterfazUsuario.CargaCompletaProductos();
                                 break;
                             case 4:
-                                InterfazUsuario.MostrarProductos(esAdmin);
+                                InterfazUsuario.MostrarProductos();
                                 break;
                             case 5:
                                 InterfazUsuario.Salir(esAdmin);
@@ -154,7 +155,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
                             }
                             break;
                         case 2:
-                            InterfazUsuario.MostrarProductos(!esAdmin);
+                            InterfazUsuario.MostrarProductos();
                             break;
                         case 3:
                             InterfazUsuario.Salir(!esAdmin);

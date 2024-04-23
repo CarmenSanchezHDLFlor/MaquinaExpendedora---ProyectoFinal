@@ -16,9 +16,8 @@ namespace MaquinaExpendedora_ProyectoFinal {
         public ProductosElectronicos() { }
 
         // CONTRUCTOR PARAMETRIZADO
-        public ProductosElectronicos(string nombre, int unidades, double precioUnitario, string descripcion, string tipoMaterial, 
-            bool tieneBateria, bool precargado)
-            : base(nombre, unidades, precioUnitario, descripcion) {
+        public ProductosElectronicos(int id, string nombre, int unidades, double precioUnitario, string descripcion, string tipoMaterial, bool tieneBateria, bool precargado)
+    :    base(id, nombre, TipoProducto.ProductosElectronicos, descripcion, unidades, false) {
             TipoMaterial = tipoMaterial;
             TieneBateria = tieneBateria;
             Precargado = precargado;

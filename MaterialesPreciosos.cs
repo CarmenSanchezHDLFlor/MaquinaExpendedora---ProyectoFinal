@@ -15,8 +15,8 @@ namespace MaquinaExpendedora_ProyectoFinal {
         public MaterialesPreciosos() { }
 
         // CONTRUCTOR PARAMETRIZADO
-        public MaterialesPreciosos(string nombre, int unidades, double precioUnitario, string descripcion, string tipoMaterial, double peso)
-            : base(nombre, unidades, precioUnitario, descripcion) {
+        public MaterialesPreciosos(int id, string nombre, int unidades, double precioUnitario, string descripcion, string tipoMaterial, double peso)
+            : base(id, nombre, TipoProducto.MaterialesPreciosos, descripcion, unidades, false) {
             TipoMaterial = tipoMaterial;
             Peso = peso;
         }

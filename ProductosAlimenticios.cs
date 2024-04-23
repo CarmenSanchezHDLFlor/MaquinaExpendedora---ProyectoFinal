@@ -14,8 +14,8 @@ namespace MaquinaExpendedora_ProyectoFinal {
         public ProductosAlimenticios() { }
 
         // CONTRUCTOR PARAMETRIZADO
-        public ProductosAlimenticios(string nombre, int unidades, double precioUnitario, string descripcion, string informacionNutricional)
-            : base(nombre, unidades, precioUnitario, descripcion) {
+        public ProductosAlimenticios(int id, string nombre, int unidades, double precioUnitario, string descripcion, 
+            string informacionNutricional) : base(id, nombre, TipoProducto.ProductosAlimenticios, descripcion, unidades, false) {
             InformacionNutricional = informacionNutricional;
         }
 

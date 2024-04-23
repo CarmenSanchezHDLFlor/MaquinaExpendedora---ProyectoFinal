@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static MaquinaExpendedora_ProyectoFinal.Producto;
 
 namespace MaquinaExpendedora_ProyectoFinal {
     internal class MaquinaExpendedora {
@@ -21,6 +22,7 @@ namespace MaquinaExpendedora_ProyectoFinal {
             Usuario = usuario;
             ListaProductos = new List<Producto>();
         }
+
 
     }
 }

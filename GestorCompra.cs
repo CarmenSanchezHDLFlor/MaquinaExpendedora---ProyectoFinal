@@ -41,10 +41,19 @@ namespace MaquinaExpendedora___ProyectoFinal {
             }
         }
 
-        public void PagoEfectivo(double precio, int idProducto) {
-            Console.WriteLine("Pago en efectivo seleccionado.");
+        private double LeerCantidad(string mensaje) {
+            Console.WriteLine(mensaje);
+            double cantidad;
+            while (!double.TryParse(Console.ReadLine(), out cantidad)) {
+                Console.WriteLine("Cantidad invalida. Por favor, ingrese un numero.");
+                Console.WriteLine(mensaje);
+            }
+            return cantidad;
+        }
 
-            double cantidadPagada = PedirCantidadPagada(precio);
+        public void PagoEfectivo(double precio, int idProducto) {
+            double cantidadPagada = LeerCantidad($"Inserte ${precio} en efectivo:");
+
 
             if (cantidadPagada < precio) {
                 Console.WriteLine("La cantidad introducida no es suficiente. El procedimiento ha sido cancelado.");
@@ -84,15 +93,13 @@ namespace MaquinaExpendedora___ProyectoFinal {
         public void PagoTarjeta(double precio, int idProducto) { 
             Console.WriteLine("Pago con tarjeta seleccionado.");
 
-            Console.WriteLine("Pago con tarjeta seleccionado.");
-
-            Console.WriteLine("Ingrese el número de tarjeta:");
+            Console.WriteLine("Ingrese el numero de tarjeta:");
             string numeroTarjeta = Console.ReadLine();
 
             Console.WriteLine("Ingrese la fecha de vencimiento (MM/YY):");
             string fechaVencimiento = Console.ReadLine();
 
-            Console.WriteLine("Ingrese el código de seguridad:");
+            Console.WriteLine("Ingrese el codigo de seguridad:");
             string codigoSeguridad = Console.ReadLine();
 
             Console.WriteLine("¡Pago con tarjeta completado!");
