@@ -178,7 +178,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
             return productosCargados;
         }
 
-        public bool CargaCompletaProductos() {
+        public bool CargaTodosLosProductos() {
             bool productosCargados = false;
 
             if (File.Exists("productos.txt")) {
