@@ -102,7 +102,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
                                 InterfazUsuario.CargaIndividualProductos();
                                 break;
                             case 3:
-                                InterfazUsuario.CargaCompletaProductos();
+                                InterfazUsuario.CargaTodosLosProductos();
                                 break;
                             case 4:
                                 InterfazUsuario.MostrarProductos();
