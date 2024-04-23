@@ -43,6 +43,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
             EsAdmin = esAdmin;
             Maquina = maquina;
             ClaveAdmin = claveAdmin;
+            ListaProductos = new List<Producto>();
         }
 
         // METODOS
