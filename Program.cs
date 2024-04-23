@@ -1,4 +1,4 @@
-﻿using MaquinaExpendedora___ProyectoFinal;
+using MaquinaExpendedora___ProyectoFinal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -86,3 +86,4 @@ namespace MaquinaExpendedora_ProyectoFinal {
         }
     }
 }
+

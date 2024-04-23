@@ -1,4 +1,4 @@
-﻿using MaquinaExpendedora_ProyectoFinal;
+using MaquinaExpendedora_ProyectoFinal;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -56,7 +56,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
                 Console.WriteLine("Producto no encontrado.");
                 return null;
             }
-
+        
             return productoSeleccionado;
         }
 

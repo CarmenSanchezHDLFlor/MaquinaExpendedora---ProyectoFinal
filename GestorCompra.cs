@@ -6,7 +6,7 @@ using System.Linq;
 namespace MaquinaExpendedora___ProyectoFinal {
     internal class GestorCompra {
 
-        // PROPIEDADES
+        // PROPIEDADES 
         private List<Producto> ListaProductos;
 
         // CONSTRUCTORES
@@ -18,10 +18,12 @@ namespace MaquinaExpendedora___ProyectoFinal {
         }
 
         // METODOS
+        // Método para iniciar el proceso de compra
         public void IniciarCompra(double precio, int idProducto) {
             SeleccionarMetodoPago(precio, idProducto);
         }
 
+        // Método para seleccionar el método de pago (efectivo o tarjeta)
         private void SeleccionarMetodoPago(double precio, int idProducto) {
             Console.WriteLine("Selecciona el metodo de pago:");
             Console.WriteLine("1. Pago en efectivo");
@@ -65,15 +67,18 @@ namespace MaquinaExpendedora___ProyectoFinal {
             ProcesarPago(precio, idProducto);
         }
 
+        // Método para solicitar la cantidad pagada en efectivo
         private double PedirCantidadPagada(double precio) {
             Console.WriteLine($"Inserte ${precio} en efectivo:");
             return double.Parse(Console.ReadLine());
         }
 
+        // Método para calcular el cambio
         private double CalcularCambio(double cantidadPagada, double precio) {
             return cantidadPagada - precio;
         }
 
+        // Método para mostrar el cambio devuelto al cliente
         private void MostrarCambio(double cambio) {
             Console.WriteLine($"Gracias por su compra. Su cambio es ${cambio}.");
 
@@ -90,6 +95,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
             }
         }
 
+        // Método para realizar el pago con tarjeta
         public void PagoTarjeta(double precio, int idProducto) { 
             Console.WriteLine("Pago con tarjeta seleccionado.");
 
@@ -107,7 +113,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
             ProcesarPago(precio, idProducto);
         }
 
-
+        // Método para procesar el pago y actualizar el stock de productos
         private void ProcesarPago(double precio, int idProducto) {
             Producto productoVendido = ListaProductos.Find(p => p.Id == idProducto);
             if (productoVendido != null) {
@@ -121,6 +127,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
             }
         }
 
+        // Método para registrar la venta de un producto
         private void RegistrarVenta(Producto producto, double precio) {
             Console.WriteLine($"Venta registrada: {producto.Nombre} - ${precio}");
         }
