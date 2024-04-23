@@ -28,7 +28,14 @@ namespace MaquinaExpendedora_ProyectoFinal
             // Bucle principal del programa, se ejecuta hasta que el usuario selecciona la opción para salir
             do
             {
-                Console.WriteLine("=== MENÚ ===");
+
+                Console.WriteLine();
+                Console.WriteLine("██████████████████████████████████████████████████████████████████████████████████████████████████████████████");
+                Console.WriteLine("█▄─▀█▀─▄██▀▄─██─▄▄▄─█▄─██─▄█▄─▄█▄─▀█▄─▄██▀▄─████▄─▄▄─█▄─▀─▄█▄─▄▄─█▄─▄▄─█▄─▀█▄─▄█▄─▄▄▀█▄─▄▄─█▄─▄▄▀█─▄▄─█▄─▄▄▀██▀▄─██");
+                Console.WriteLine("██─█▄█─███─▀─██─██▀─██─██─███─███─█▄▀─███─▀─█████─▄█▀██▀─▀███─▄▄▄██─▄█▀██─█▄▀─███─██─██─▄█▀██─██─█─██─██─▄─▄██─▀─██");
+                Console.WriteLine("▀▄▄▄▀▄▄▄▀▄▄▀▄▄▀───▄▄▀▀▄▄▄▄▀▀▄▄▄▀▄▄▄▀▀▄▄▀▄▄▀▄▄▀▀▀▄▄▄▄▄▀▄▄█▄▄▀▄▄▄▀▀▀▄▄▄▄▄▀▄▄▄▀▀▄▄▀▄▄▄▄▀▀▄▄▄▄▄▀▄▄▄▄▀▀▄▄▄▄▀▄▄▀▄▄▀▄▄▀▄▄▀");
+                Console.WriteLine();
+
                 Console.WriteLine("1. Comprar Productos");
                 Console.WriteLine("2. Mostrar Información de Productos");
                 Console.WriteLine("3. Cargar Productos Individuales");
