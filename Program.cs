@@ -9,11 +9,21 @@ namespace MaquinaExpendedora_ProyectoFinal {
     internal class Program {
         static void Main(string[] args) {
             int opcion = 0;
+            
+            Console.WriteLine();
+            Console.WriteLine("███████████████████████████████████████████████████████████████████████████████████████████████████████████████████");
+            Console.WriteLine("█▄─▀█▀─▄██─▄─██─▄▄▄─█▄─██─▄█▄─▄█▄─▀█▄─▄██─▄─████▄─▄▄─█▄─▀─▄█▄─▄▄─█▄─▄▄─█▄─▀█▄─▄█▄─▄▄▀█▄─▄▄─█▄─▄▄▀█─▄▄─█▄─▄▄▀██─▄─██");
+            Console.WriteLine("██─█▄█─███─▀─██─██▀▄██─██─███─███─█▄▀─███─▀─█████─▄█▀██▀─▀███─▄▄▄██─▄█▀██─█▄▀─███─██─██─▄█▀██─██─█─██─██─▄─▄██─▀─██");
+            Console.WriteLine("█▄▄▄█▄▄▄█▄▄█▄▄█▄▄▄█▄██▄▄▄▄██▄▄▄█▄▄▄██▄▄█▄▄█▄▄███▄▄▄▄▄█▄▄█▄▄█▄▄▄███▄▄▄▄▄█▄▄▄██▄▄█▄▄▄▄██▄▄▄▄▄█▄▄▄▄██▄▄▄▄█▄▄█▄▄█▄▄█▄▄█");
+            Console.WriteLine("▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀");
+            Console.WriteLine();
 
-            Console.WriteLine("1.Comprar Productos");
-            Console.WriteLine("2.Información de Productos");
-            Console.WriteLine("3.Salir");
-            Console.WriteLine("4.Opciones Admin");
+            Console.WriteLine(" ###################################");
+            Console.WriteLine(" ##  1.Comprar Productos          ##");
+            Console.WriteLine(" ##  2.Información de Productos   ##");
+            Console.WriteLine(" ##  3.Salir                      ##");
+            Console.WriteLine(" ##  4.Opciones Admin             ##");
+            Console.WriteLine(" ###################################");
 
             opcion = int.Parse(Console.ReadLine());
 
