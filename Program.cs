@@ -23,8 +23,9 @@ namespace MaquinaExpendedora_ProyectoFinal
             GestorCompra g = new GestorCompra();
             InterfazUsuario usuario = new InterfazUsuario();
 
-            int opcion = 0;
+            int opcion = 0; // Variable para almacenar la opción seleccionada por el usuario
 
+            // Bucle principal del programa, se ejecuta hasta que el usuario selecciona la opción para salir
             do
             {
                 Console.WriteLine("=== MENÚ ===");
@@ -36,9 +37,9 @@ namespace MaquinaExpendedora_ProyectoFinal
                 Console.Write("Seleccione una opción: ");
                 opcion = int.Parse(Console.ReadLine());
 
-                switch (opcion)
+                switch (opcion) // Evaluar la opción seleccionada
                 {
-                    case 1:
+                    case 1: // Opción para comprar productos
                         string otro = "S";
 
                         do
@@ -64,7 +65,8 @@ namespace MaquinaExpendedora_ProyectoFinal
                         } while (otro != "N");
 
                         break;
-                    case 2:
+
+                    case 2: // Opción para mostrar información detallada de un producto
                         Console.WriteLine("Introduce la Id del producto: ");
                         int idProducto_info = int.Parse(Console.ReadLine());
                         InterfazUsuario productoElegido_info = new InterfazUsuario();
@@ -79,7 +81,8 @@ namespace MaquinaExpendedora_ProyectoFinal
                             Console.WriteLine("Producto no encontrado");
                         }
                         break;
-                    case 3:
+
+                    case 3: // Opción para cargar productos individuales en la máquina expendedora
                         Console.WriteLine("Introduce la Id del producto: ");
                         int idProducto_cargar = int.Parse(Console.ReadLine());
                         InterfazUsuario productoElegido_cargar = new InterfazUsuario();
@@ -94,19 +97,21 @@ namespace MaquinaExpendedora_ProyectoFinal
                             Console.WriteLine("Producto no encontrado");
                         }
                         break;
-                    case 4:
+
+                    case 4: // Opción para cargar todos los productos en la máquina expendedora
                         Console.WriteLine("Cargando todos los productos...");
                         InterfazUsuario cargarProductos = new InterfazUsuario();
                         cargarProductos.CargarTodosLosProductos();
                         break;
-                    case 5:
+
+                    case 5: // Opción para salir del programa
                         Console.WriteLine("Saliendo...");
                         break;
-                    default:
+
+                    default: // Opción por defecto
                         Console.WriteLine("Opción no válida. Intente de nuevo.");
                         break;
                 }
-
                 Console.WriteLine();
             } while (opcion != 5);
         }
