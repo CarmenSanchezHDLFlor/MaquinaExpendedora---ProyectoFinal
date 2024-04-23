@@ -70,6 +70,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
             return cantidadPagada - precio;
         }
 
+        // Método para mostrar el cambio devuelto al cliente
         private void MostrarCambio(double cambio) {
             Console.WriteLine($"Gracias por su compra. Su cambio es ${cambio}.");
 
@@ -86,6 +87,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
             }
         }
 
+        // Método para realizar el pago con tarjeta
         public void PagoTarjeta(double precio, int idProducto) { 
             Console.WriteLine("Pago con tarjeta seleccionado.");
 
@@ -105,7 +107,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
             ProcesarPago(precio, idProducto);
         }
 
-
+        // Método para procesar el pago y actualizar el stock de productos
         private void ProcesarPago(double precio, int idProducto) {
             Producto productoVendido = ListaProductos.Find(p => p.Id == idProducto);
             if (productoVendido != null) {
@@ -119,6 +121,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
             }
         }
 
+        // Método para registrar la venta de un producto
         private void RegistrarVenta(Producto producto, double precio) {
             Console.WriteLine($"Venta registrada: {producto.Nombre} - ${precio}");
         }
