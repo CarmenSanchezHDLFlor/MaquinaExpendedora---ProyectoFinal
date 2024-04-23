@@ -90,7 +90,9 @@ namespace MaquinaExpendedora_ProyectoFinal
                     Console.WriteLine("1.Cargar Producto");
                     Console.WriteLine("2.Cargar lista de Productos");
                     Console.WriteLine("3.Salir");
-
+                    opcionAdmin = int.Parse(Console.ReadLine());
+                
+                
                     switch (opcionAdmin)
                     {
                         case 1:
@@ -98,7 +100,7 @@ namespace MaquinaExpendedora_ProyectoFinal
                             int idProducto_cargar = int.Parse(Console.ReadLine());
                             InterfazUsuario productoElegido_cargar = new InterfazUsuario();
                             Producto elegido_cargar = productoElegido_cargar.ElegirProducto(idProducto_cargar);
-
+                
                             elegido_cargar.CargaIndividualProductos();
                             break;
                         case 2:
