@@ -22,16 +22,10 @@ namespace MaquinaExpendedora_ProyectoFinal {
             InterfazUsuario usuario = new InterfazUsuario();
 
             int opcion = 0;
-            //hay un método de menú, ver cómo ajustar
-            Console.WriteLine("1.Comprar Productos");
-            Console.WriteLine("2.Información de Productos");
-            Console.WriteLine("3.Cargar Producto");
-            Console.WriteLine("4.Cargar lista de Productos");
-            Console.WriteLine("5.Salir");
-            opcion = int.Parse(Console.ReadLine());
+
 
             switch (opcion) {
-                case 1: // No está hecho exactamente igual a como se pide en el diagrama de flujo del guión
+                case 1: 
                     string otro = "S";
 
                     do
