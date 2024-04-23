@@ -69,22 +69,6 @@ namespace MaquinaExpendedora___ProyectoFinal {
             return productoSeleccionado;
         }
 
-        // metodo para mostrar el menu de ambos usuarios
-        public void MostrarMenuPrincipal() {
-            Console.WriteLine("--- Menu ---");
-            if (Maquina.Usuario.EsAdmin) {
-                Console.WriteLine("1. Carga individual la maquina con productos.");
-                Console.WriteLine("2. Carga completa de los productos de la maquina.");
-                Console.WriteLine("3. Mostrar todos los productos de la maquina.");
-                Console.WriteLine("4. Salir.");
-            }
-            else {
-                Console.WriteLine("1. Comprar productos.");
-                Console.WriteLine("2. Mostrar los productos disponibles.");
-                Console.WriteLine("3. Salir de la maquina.");
-            }
-        }
-
         // metodo para mostrar los productos 
         public void MostrarProductos(bool esAdmin) {
             if (ListaProductos.Count == 0) {
