@@ -84,7 +84,7 @@ namespace MaquinaExpendedora_ProyectoFinal {
                             InterfazUsuario TodosProductos = new InterfazUsuario();
                             Producto p = new Producto();
                             p.MostrarInformacion();
-                            TodosProductos.CargaCompletaProductos();
+                            TodosProductos.CargaTodosLosProductos();
                             break;
                         case 3:
                             InterfazUsuario serAdmin = new InterfazUsuario();
