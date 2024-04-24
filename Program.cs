@@ -75,6 +75,7 @@ namespace MaquinaExpendedora_ProyectoFinal {
 
                     switch (opcionAdmin) {
                         case 1:
+                            Usuario u = new Usuario();
                             Console.WriteLine("Introduce la Id del producto: ");
                             int idProducto_cargar = int.Parse(Console.ReadLine());
                             InterfazUsuario productoElegido_cargar = new InterfazUsuario();

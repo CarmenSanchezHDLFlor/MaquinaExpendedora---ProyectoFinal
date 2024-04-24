@@ -51,7 +51,12 @@ namespace MaquinaExpendedora___ProyectoFinal {
             return $"{Nombre} {Ape1} {Ape2}";
         }
 
-        // metodo para que el ADMIN pueda acceder 
+        /// <summary>
+        /// Función para el Login de un usuario
+        /// </summary>
+        /// <param name="nickname">Nick del usuario</param>
+        /// <param name="password">Contraseña del usuario</param>
+        /// <returns>True si hace login correctamente, false en caso contrario</returns>
         public bool Login(string nickname, string password) {
             return NickName == nickname && Password == password;
         }
