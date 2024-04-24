@@ -150,7 +150,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
                         case "Productos Electrónicos":
                             string tipoMaterial = datos[7];
                             bool tieneBateria = bool.Parse(datos[8]);
-                            bool precargado = bool.Parse(datos[9]);
+                            bool precargado = bool.Parse(datos[8]);
                             ProductosElectronicos productoE = new ProductosElectronicos(id, nombre, unidades, precioUnitario, descripcion, tipoMaterial, tieneBateria, precargado);
                             ListaProductos.Add(productoE);
                             break;
