@@ -103,7 +103,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
                                 InterfazUsuario.CargaIndividualProductos(); // llamada para la carga individual de productos
                                 break;
                             case 3:
-                                InterfazUsuario.CargaTodosLosProductos(); // llamada para la carga de todos los productos 
+                                InterfazUsuario.CargaTodosLosProductos();
                                 break;
                             case 4:
                                 InterfazUsuario.MostrarProductos(); // llamada para mostrar todos los productos 
