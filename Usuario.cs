@@ -58,7 +58,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
 
         // metodo MENU para adminisitrar las acciones de ADMIN y CLIENTE
         public void Menu(bool esAdmin) {
-            if (esAdmin) {
+            if (esAdmin) { // opciones para el Administrador 
                 Console.WriteLine("Ingrese la clave de administrador:");
                 string claveIngresada = Console.ReadLine();
 
@@ -78,6 +78,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
                                 Console.Write("Introduce el ID del contenido: ");
                                 int idProductoAComprar;
 
+                                // usamos el try-catch para el control de errores por el ID
                                 try {
                                     idProductoAComprar = int.Parse(Console.ReadLine());
                                     Producto producto = null;
@@ -88,7 +89,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
                                         }
                                     }
                                     if (producto != null) {
-                                        producto.ComprarProducto(idProductoAComprar);
+                                        producto.ComprarProducto(idProductoAComprar); // llamada para comprar productos
                                     }
                                     else {
                                         Console.WriteLine("El producto seleccionado no esta en stock.");
@@ -99,16 +100,16 @@ namespace MaquinaExpendedora___ProyectoFinal {
                                 }
                                 break;
                             case 2:
-                                InterfazUsuario.CargaIndividualProductos();
+                                InterfazUsuario.CargaIndividualProductos(); // llamada para la carga individual de productos
                                 break;
                             case 3:
-                                InterfazUsuario.CargaCompletaProductos();
+                                InterfazUsuario.CargaTodosLosProductos(); // llamada para la carga de todos los productos 
                                 break;
                             case 4:
-                                InterfazUsuario.MostrarProductos();
+                                InterfazUsuario.MostrarProductos(); // llamada para mostrar todos los productos 
                                 break;
                             case 5:
-                                InterfazUsuario.Salir(esAdmin);
+                                InterfazUsuario.Salir(esAdmin); // llamada para poder Salir de la aplicacion 
                                 Console.WriteLine("Saliendo...");
                                 break;
                             default:
@@ -121,7 +122,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
                     Console.WriteLine("Clave incorrecta. Acceso denegado.");
                 }
             }
-            else {
+            else { // opciones para el cliente 
                 int opcion;
                 do {
                     Console.WriteLine("1. Comprar productos.");
@@ -134,7 +135,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
                         case 1:
                             Console.Write("Introduce el ID del producto: ");
                             int idProductoAComprar;
-                            try {
+                            try { // usamos el try-catch para el control de errores por el ID
                                 idProductoAComprar = int.Parse(Console.ReadLine());
                                 Producto producto = null;
                                 foreach (Producto p in ListaProductos) {
@@ -144,7 +145,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
                                     }
                                 }
                                 if (producto != null) {
-                                    producto.ComprarProducto(idProductoAComprar);
+                                    producto.ComprarProducto(idProductoAComprar); // llamada para comprar productos
                                 }
                                 else {
                                     Console.WriteLine("El producto seleccionado no esta en stock.");
@@ -155,10 +156,10 @@ namespace MaquinaExpendedora___ProyectoFinal {
                             }
                             break;
                         case 2:
-                            InterfazUsuario.MostrarProductos();
+                            InterfazUsuario.MostrarProductos(); // llamada para mostrar todos los productos 
                             break;
                         case 3:
-                            InterfazUsuario.Salir(!esAdmin);
+                            InterfazUsuario.Salir(!esAdmin); // llamada para poder Salir de la aplicacion 
                             break;
                         default:
                             Console.WriteLine("Intenta de nuevo.");
