@@ -141,7 +141,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
                     string descripcion = datos[3];
                     int unidades = int.Parse(datos[4]);
 
-                    switch (tipoString) {
+                    switch (tipoString) {    
                         case "Productos Alimenticios":
                             string informacionNutricional = datos[6];
                             ProductosAlimenticios productoA = new ProductosAlimenticios(id, nombre, unidades, precioUnitario, descripcion, informacionNutricional);
@@ -154,7 +154,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
                             ProductosElectronicos productoE = new ProductosElectronicos(id, nombre, unidades, precioUnitario, descripcion, tipoMaterial, tieneBateria, precargado);
                             ListaProductos.Add(productoE);
                             break;
-                        case "Materiales Preciosos":
+                        case "Materiales Preciosos":   
                             // 13|Diamante|Materiales Preciosos|Gemas|1|3000.00|Diamante|0.5
                             string tipoMaterialM = datos[2];
                             double peso = double.Parse(datos[7]);
