@@ -114,12 +114,14 @@ namespace MaquinaExpendedora___ProyectoFinal {
 
         // metodo aux para realizar el pago efectivo de la compra
         private void PagoEfectivo(double precio, int idProducto) {
-            GestorCompra.PagoEfectivo(precio, idProducto); // llama al método PagoEfectivo del GestorCompra, pasándole el precio y el ID del producto como argumentos
+            GestorCompra gestor = new GestorCompra();
+            gestor.PagoEfectivo(precio, idProducto); // llama al método PagoEfectivo del GestorCompra, pasándole el precio y el ID del producto como argumentos
         }
 
         // metodo aux para realizar el pago con tarjeta de la compra
         private void PagoTarjeta(double precio, int idProducto) {
-            GestorCompra.PagoTarjeta(precio, idProducto); // llama al método PagoTarjeta del GestorCompra, pasándole el precio y el ID del producto como argumentos
+            GestorCompra gestorT = new GestorCompra();
+            gestorT.PagoTarjeta(precio, idProducto); // llama al método PagoTarjeta del GestorCompra, pasándole el precio y el ID del producto como argumentos
         }
 
         // metodo para cargar individualmente los productos de la maquina 
@@ -150,7 +152,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
                         case "Productos Electrónicos":
                             string tipoMaterial = datos[7];
                             bool tieneBateria = bool.Parse(datos[8]);
-                            bool precargado = bool.Parse(datos[9]);
+                            bool precargado = bool.Parse(datos[8]);
                             ProductosElectronicos productoE = new ProductosElectronicos(id, nombre, unidades, precioUnitario, descripcion, tipoMaterial, tieneBateria, precargado);
                             ListaProductos.Add(productoE);
                             break;
@@ -163,8 +165,6 @@ namespace MaquinaExpendedora___ProyectoFinal {
                             break;
                     }
 
-
-                    
                 }
                 sr.Close();
             }
