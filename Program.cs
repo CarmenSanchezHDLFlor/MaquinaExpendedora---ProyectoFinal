@@ -25,6 +25,8 @@ namespace MaquinaExpendedora_ProyectoFinal {
             Console.WriteLine(" ##  3.Salir                      ##");
             Console.WriteLine(" ##  4.Opciones Admin             ##");
             Console.WriteLine(" ###################################");
+            Console.WriteLine();
+            Console.Write(" Elige una opción: ");
 
             opcion = int.Parse(Console.ReadLine());
 
