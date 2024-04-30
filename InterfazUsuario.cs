@@ -206,10 +206,6 @@ namespace MaquinaExpendedora___ProyectoFinal {
             }
         }
 
-        /// <summary>
-        /// Método público para eliminar un producto de nuestra máquina expendedora 
-        /// </summary>
-        /// <param name="nombreProducto"></param>
         public void EliminarProducto(string nombreProducto) {
             Producto productoAEliminar = ListaProductos.FirstOrDefault(p => p.Nombre.Equals(nombreProducto));
             if (productoAEliminar != null) {

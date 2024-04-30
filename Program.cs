@@ -17,7 +17,6 @@ namespace MaquinaExpendedora_ProyectoFinal {
         }
 
         static void Main(string[] args) {
-
             // Ruta del archivo CSV
             string filePath = "productos.csv";
 
@@ -31,7 +30,6 @@ namespace MaquinaExpendedora_ProyectoFinal {
 
             do {
                 do {
-
                     Console.WriteLine();
                     Console.WriteLine("███████████████████████████████████████████████████████████████████████████████████████████████████████████████████");
                     Console.WriteLine("█▄─▀█▀─▄██─▄─██─▄▄▄─█▄─██─▄█▄─▄█▄─▀█▄─▄██─▄─████▄─▄▄─█▄─▀─▄█▄─▄▄─█▄─▄▄─█▄─▀█▄─▄█▄─▄▄▀█▄─▄▄─█▄─▄▄▀█─▄▄─█▄─▄▄▀██─▄─██");
@@ -40,13 +38,35 @@ namespace MaquinaExpendedora_ProyectoFinal {
                     Console.WriteLine("▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀");
                     Console.WriteLine();
 
-
                     // Preguntar al usuario el tipo (Admin o Cliente)
                     Console.WriteLine("¿Eres un administrador? (S/N)");
                     string respuesta = Console.ReadLine().ToLower();
 
                     if (respuesta == "s") {
                         usuario.Tipo = Usuario.TipoUsuario.Admin;
+                        // Solicitar contraseña solo si el usuario es administrador
+                        Console.Write(" Ingrese la contraseña de administrador: ");
+                        StringBuilder contraseñaIngresada = new StringBuilder();
+                        ConsoleKeyInfo tecla;
+                        do {
+                            tecla = Console.ReadKey(true); // Lee la tecla sin mostrarla en la consola
+                            if (tecla.Key != ConsoleKey.Enter) {
+                                if (tecla.Key == ConsoleKey.Backspace && contraseñaIngresada.Length > 0) {
+                                    Console.Write("\b \b"); // Borra el último carácter mostrado
+                                    contraseñaIngresada.Remove(contraseñaIngresada.Length - 1, 1); // Elimina el último carácter de la contraseña ingresada
+                                }
+                                else {
+                                    contraseñaIngresada.Append(tecla.KeyChar);
+                                    Console.Write("*"); // Muestra un asterisco en lugar del carácter real
+                                }
+                            }
+                        } while (tecla.Key != ConsoleKey.Enter);
+
+                        if (!ValidarClaveSecreta(contraseñaIngresada.ToString())) {
+                            Console.WriteLine("\nClave incorrecta. Acceso denegado.");
+                            break;
+                        }
+                        Console.WriteLine();
                     }
                     else {
                         usuario.Tipo = Usuario.TipoUsuario.Cliente;
@@ -91,38 +111,11 @@ namespace MaquinaExpendedora_ProyectoFinal {
                                 break;
                             case 2:
                                 // Código para mostrar información del producto
-                                Console.WriteLine("Introduce el ID del producto: ");
-                                string input = Console.ReadLine();
-                                int idProducto;
-
-                                try {
-
-                                    // Código para mostrar información del producto
-                                    idProducto = int.Parse(input);
-                                    Console.WriteLine("Introduce el ID del producto: ");
-
-                                    try {
-                                        idProducto = int.Parse(input);
-
-                                        // Buscar el producto por su ID
-                                        Producto producto = interfazUsuario.BuscarProductoPorId(idProducto);
-
-                                        if (producto != null) { // Mostrar información del producto
-                                            producto.MostrarInformacion();
-                                        }
-                                        else {
-                                            // Mostrar mensaje de que la información no está disponible
-                                            Console.WriteLine("La informacion del producto no esta disponible.");
-                                        }
-                                    }
-                                    catch (FormatException) {
-                                        Console.WriteLine("Introduce un ID valido.");
-                                    }
-                                    break;
-
-                                }
-                                catch (FormatException) {
-                                    Console.WriteLine("Introduce un ID valido.");
+                                // Código para mostrar información de todos los productos
+                                Console.WriteLine("Información de todos los productos:");
+                                foreach (Producto producto in interfazUsuario.ListaProductos) {
+                                    producto.MostrarInformacion();
+                                    Console.WriteLine();
                                 }
                                 break;
                             case 3:
@@ -131,31 +124,6 @@ namespace MaquinaExpendedora_ProyectoFinal {
                             case 4:
                                 // Código para cargar productos individualmente
                                 if (usuario.Tipo == Usuario.TipoUsuario.Admin) {
-                                    Console.WriteLine();
-                                    Console.Write(" Ingrese la contraseña de administrador: ");
-                                    StringBuilder contraseñaIngresada = new StringBuilder();
-                                    ConsoleKeyInfo tecla;
-                                    do {
-                                        tecla = Console.ReadKey(true); // Lee la tecla sin mostrarla en la consola
-                                        if (tecla.Key != ConsoleKey.Enter) {
-                                            if (tecla.Key == ConsoleKey.Backspace && contraseñaIngresada.Length > 0) {
-                                                Console.Write("\b \b"); // Borra el último carácter mostrado
-                                                contraseñaIngresada.Remove(contraseñaIngresada.Length - 1, 1); // Elimina el último carácter de la contraseña ingresada
-                                            }
-                                            else {
-                                                contraseñaIngresada.Append(tecla.KeyChar);
-                                                Console.Write("*"); // Muestra un asterisco en lugar del carácter real
-                                            }
-                                        }
-                                    } while (tecla.Key != ConsoleKey.Enter);
-
-                                    if (!ValidarClaveSecreta(contraseñaIngresada.ToString())) {
-                                        Console.WriteLine("\nClave incorrecta. Acceso denegado.");
-                                        break;
-                                    }
-                                    Console.WriteLine();
-
-                                    // Código para cargar productos individualmente
                                     try {
                                         Console.WriteLine("Introduce los detalles del producto:");
                                         Console.Write("Nombre: ");
@@ -171,7 +139,7 @@ namespace MaquinaExpendedora_ProyectoFinal {
                                             Console.WriteLine("ID: ");
                                             id = int.Parse(Console.ReadLine());
                                             if (MaquinaExpendedora.ListaProductos.Any(p => p.Id == id)) {
-                                                Console.WriteLine($"Ya existe un producto con el ID {id}. Introduce un ID unico.");
+                                                Console.WriteLine($"Ya existe un producto con el ID {id}. Introduce un ID único.");
                                             }
                                         } while (MaquinaExpendedora.ListaProductos.Any(p => p.Id == id));
 
@@ -181,7 +149,7 @@ namespace MaquinaExpendedora_ProyectoFinal {
                                         Console.WriteLine("Selecciona el tipo de producto:");
                                         Console.WriteLine("1. Materiales Preciosos");
                                         Console.WriteLine("2. Productos Alimenticios");
-                                        Console.WriteLine("3. Productos Electronicos");
+                                        Console.WriteLine("3. Productos Electrónicos");
                                         int tipo = int.Parse(Console.ReadLine());
 
                                         switch (tipo) {
@@ -193,21 +161,21 @@ namespace MaquinaExpendedora_ProyectoFinal {
                                                 nuevoProducto = new MaterialesPreciosos(id, nombre, unidades, precioUnitario, descripcion, tipoMaterial, peso);
                                                 break;
                                             case 2:
-                                                Console.Write("Informacion nutricional: ");
+                                                Console.Write("Información nutricional: ");
                                                 string informacionNutricional = Console.ReadLine();
                                                 nuevoProducto = new ProductosAlimenticios(id, nombre, unidades, precioUnitario, descripcion, informacionNutricional);
                                                 break;
                                             case 3:
                                                 Console.Write("Tipo de material: ");
                                                 string tipoMaterialE = Console.ReadLine();
-                                                Console.Write("¿Tiene bateria? (Si/No): ");
+                                                Console.Write("¿Tiene batería? (Si/No): ");
                                                 bool tieneBateria = Console.ReadLine().ToLower() == "si";
                                                 Console.Write("¿Precargado? (Si/No): ");
                                                 bool precargado = Console.ReadLine().ToLower() == "si";
                                                 nuevoProducto = new ProductosElectronicos(id, nombre, unidades, precioUnitario, descripcion, tipoMaterialE, tieneBateria, precargado);
                                                 break;
                                             default:
-                                                Console.WriteLine("Opcion invalida.");
+                                                Console.WriteLine("Opción inválida.");
                                                 break;
                                         }
 
@@ -215,25 +183,20 @@ namespace MaquinaExpendedora_ProyectoFinal {
                                         maquina.GuardarProductoEnCSV(nuevoProducto, "productos.csv");
                                     }
                                     catch (FormatException) {
-                                        Console.WriteLine("Entrada invalida. Introduce un formato valido.");
+                                        Console.WriteLine("Entrada inválida. Introduce un formato válido.");
                                     }
                                 }
                                 else {
-                                    Console.WriteLine("Opcion invalida para usuarios cliente.");
+                                    Console.WriteLine("\nClave incorrecta. Acceso denegado.");
                                 }
                                 break;
                             case 5:
                                 // Código para cargar productos desde un archivo
                                 if (usuario.Tipo == Usuario.TipoUsuario.Admin) {
                                     try {
-                                        //Console.Write("Introduce la ruta del archivo de texto: ");
-                                        //string rutaArchivo = Console.ReadLine();
-
                                         // Llama al método para cargar productos desde el archivo CSV
                                         maquina.CargarProductosDesdeCSV(filePath);
-
                                         Console.WriteLine("Productos guardados exitosamente.");
-
                                     }
                                     catch (Exception e) {
                                         Console.WriteLine($"Error: {e.Message}");
@@ -279,4 +242,4 @@ namespace MaquinaExpendedora_ProyectoFinal {
             } while (Console.ReadLine().ToLower() == "s"); // Si se ingresa "s", reiniciar la aplicación
         }
     }
- }
+}

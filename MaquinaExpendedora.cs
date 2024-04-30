@@ -46,11 +46,10 @@ namespace MaquinaExpendedora_ProyectoFinal {
             this.Usuario = usuario;
             GestorCompra = new GestorCompra();
         }
-
         /// <summary>
         /// Método público para cargar los productos desde un archivo CSV
         /// </summary>
-        /// <param name="rutaArchivo"></param>
+        /// <param name="rutaArchivo">Ruta del archivo CSV</param>
         public void CargarProductosDesdeCSV(string rutaArchivo) {
             using (StreamReader reader = new StreamReader(rutaArchivo)) {
                 string line;
@@ -111,7 +110,6 @@ namespace MaquinaExpendedora_ProyectoFinal {
         /// <param name="rutaArchivo"></param>
         public void GuardarProductoEnCSV(Producto producto, string rutaArchivo) {
             using (StreamWriter writer = new StreamWriter(rutaArchivo, true)) {
-
                 if (producto is ProductosAlimenticios) {
                     ProductosAlimenticios productoAlimenticio = (ProductosAlimenticios)producto;
                     writer.WriteLine($"{producto.Id}|{productoAlimenticio.Nombre}|{productoAlimenticio.Descripcion}|{productoAlimenticio.Unidades}|{productoAlimenticio.PrecioUnitario}|{productoAlimenticio.InformacionNutricional}");
@@ -128,6 +126,7 @@ namespace MaquinaExpendedora_ProyectoFinal {
                 }
             }
         }
+
 
     }
 }
