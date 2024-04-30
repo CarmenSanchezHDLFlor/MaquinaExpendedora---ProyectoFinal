@@ -92,12 +92,12 @@ namespace MaquinaExpendedora_ProyectoFinal {
                         }
                         else {
                             // Si no coincide con ninguno de los casos anteriores, mostrar un error
-                            Console.WriteLine($"Error: La línea del archivo CSV no tiene el formato correcto para un producto: {line}");
+                            Console.WriteLine($" Error: La línea del archivo CSV no tiene el formato correcto para un producto: {line}");
                         }
                     }
                     else {
                         // Si no hay suficientes campos, mostrar un error
-                        Console.WriteLine($"Error: La línea del archivo CSV no tiene el formato correcto para un producto: {line}");
+                        Console.WriteLine($" Error: La línea del archivo CSV no tiene el formato correcto para un producto: {line}");
                     }
                 }
             }

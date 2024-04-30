@@ -54,8 +54,8 @@ namespace MaquinaExpendedora_ProyectoFinal {
         /// </summary>
         public override void MostrarInformacion() {
             base.MostrarInformacion();
-            Console.WriteLine($"TipoMaterial: {TipoMaterial}");
-            Console.WriteLine($"Peso: {Peso} gramos");
+            Console.WriteLine($" TipoMaterial: {TipoMaterial}");
+            Console.WriteLine($" Peso: {Peso} gramos");
         }
 
     }

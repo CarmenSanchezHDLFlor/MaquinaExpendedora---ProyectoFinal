@@ -86,20 +86,20 @@ namespace MaquinaExpendedora___ProyectoFinal {
         /// <param name="cantidad"></param>
         public void ComprarProducto(int id, int cantidad) {
             if (Usuario.Tipo != Usuario.TipoUsuario.Cliente) {
-                Console.WriteLine("Acceso denegado. Solo los clientes pueden comprar productos.");
+                Console.WriteLine(" Acceso denegado. Solo los clientes pueden comprar productos.");
                 return;
             }
 
             Producto producto = ListaProductos.FirstOrDefault(p => p.Id == id && !p.EstaVendido());
 
             if (producto == null) {
-                Console.WriteLine("Producto no encontrado o ya vendido.");
+                Console.WriteLine(" Producto no encontrado o ya vendido.");
                 return;
             }
 
             // Verificar si el producto no es null antes de acceder a sus propiedades
             if (producto != null && producto.Unidades < cantidad) {
-                Console.WriteLine("No hay suficientes unidades disponibles.");
+                Console.WriteLine(" No hay suficientes unidades disponibles.");
                 return;
             }
 
@@ -110,10 +110,10 @@ namespace MaquinaExpendedora___ProyectoFinal {
             // Usar el GestorCompra inicializado para gestionar el pago
             if (GestorCompra != null) {
                 GestorCompra.SeleccionarMetodoPago(total);
-                Console.WriteLine($"Producto(s) comprado(s) con exito: {producto.Nombre} x {cantidad}");
+                Console.WriteLine($" Producto(s) comprado(s) con exito: {producto.Nombre} x {cantidad}");
             }
             else {
-                Console.WriteLine("Error: El producto no ha sido comprado con exito.");
+                Console.WriteLine(" Error: El producto no ha sido comprado con exito.");
             }
         }
 
@@ -125,40 +125,40 @@ namespace MaquinaExpendedora___ProyectoFinal {
         /// <param name="producto"></param>
         public bool AgregarProducto(Producto producto, int tipoProducto) {
             if (ListaProductos.Count >= 12) {
-                Console.WriteLine("La máquina expendedora está llena. No se pueden agregar más productos.");
+                Console.WriteLine(" La máquina expendedora está llena. No se pueden agregar más productos.");
                 return false;
             }
             switch (tipoProducto) {
                 case 1:
                     if (producto is MaterialesPreciosos) {
                         ListaProductos.Add(producto);
-                        Console.WriteLine($"Producto {producto.Nombre} de tipo Materiales Preciosos agregado correctamente.");
+                        Console.WriteLine($" Producto {producto.Nombre} de tipo Materiales Preciosos agregado correctamente.");
                         return true;
                     } else {
-                        Console.WriteLine("Tipo de producto no coincidente.");
+                        Console.WriteLine(" Tipo de producto no coincidente.");
                         return false;
                     }
                 case 2:
                     if (producto is ProductosAlimenticios) {
                         
                         ListaProductos.Add(producto);
-                        Console.WriteLine($"Producto {producto.Nombre} de tipo Productos Alimenticios agregado correctamente.");
+                        Console.WriteLine($" Producto {producto.Nombre} de tipo Productos Alimenticios agregado correctamente.");
                         return true;
                     } else {
-                        Console.WriteLine("Tipo de producto no coincidente.");
+                        Console.WriteLine(" Tipo de producto no coincidente.");
                         return false;
                     }
                 case 3:
                     if (producto is ProductosElectronicos) {
                         ListaProductos.Add(producto);
-                        Console.WriteLine($"Producto {producto.Nombre} de tipo Productos Electronicos agregado correctamente.");
+                        Console.WriteLine($" Producto {producto.Nombre} de tipo Productos Electronicos agregado correctamente.");
                         return true;
                     } else {
-                        Console.WriteLine("Tipo de producto no coincidente.");
+                        Console.WriteLine(" Tipo de producto no coincidente.");
                         return false;
                     }
                 default:
-                    Console.WriteLine("Opcion invalida.");
+                    Console.WriteLine(" Opcion invalida.");
                     return false;
             }
         }
@@ -183,7 +183,7 @@ namespace MaquinaExpendedora___ProyectoFinal {
         /// Empleamos la propiedad creada anteriormente de 'Continuar'
         /// </summary>
         public void Salir() {
-            Console.WriteLine("Saliendo de la aplicacion...");
+            Console.WriteLine(" Saliendo de la aplicacion...");
             Continuar = false;
         }
 
@@ -197,11 +197,11 @@ namespace MaquinaExpendedora___ProyectoFinal {
 
             if (productoAEliminar != null) {
                 ListaProductos.Remove(productoAEliminar);
-                Console.WriteLine($"Producto con ID {idProducto} ha sido eliminado correctamente.");
+                Console.WriteLine($" Producto con ID {idProducto} ha sido eliminado correctamente.");
                 return true;
             }
             else {
-                Console.WriteLine("Producto no encontrado.");
+                Console.WriteLine(" Producto no encontrado.");
                 return false;
             }
         }
@@ -210,10 +210,10 @@ namespace MaquinaExpendedora___ProyectoFinal {
             Producto productoAEliminar = ListaProductos.FirstOrDefault(p => p.Nombre.Equals(nombreProducto));
             if (productoAEliminar != null) {
                 ListaProductos.Remove(productoAEliminar);
-                Console.WriteLine($"Producto '{nombreProducto}' eliminado correctamente.");
+                Console.WriteLine($" Producto '{nombreProducto}' eliminado correctamente.");
             }
             else {
-                Console.WriteLine($"El producto '{nombreProducto}' no existe en la máquina expendedora.");
+                Console.WriteLine($" El producto '{nombreProducto}' no existe en la máquina expendedora.");
             }
         }
     }

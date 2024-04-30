@@ -44,7 +44,7 @@ namespace MaquinaExpendedora_ProyectoFinal {
         /// </summary>
         public override void MostrarInformacion() {
             base.MostrarInformacion();
-            Console.WriteLine($"Informacion nutricional: {InformacionNutricional}");
+            Console.WriteLine($" Informacion nutricional: {InformacionNutricional}");
         }
 
     }

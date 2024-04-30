@@ -97,10 +97,10 @@ namespace MaquinaExpendedora_ProyectoFinal {
         /// Nos da la información común de cada producto 
         /// </summary>
         public virtual void MostrarInformacion() {
-            Console.WriteLine($"Nombre: {Nombre}");
-            Console.WriteLine($"Unidades: {Unidades}");
-            Console.WriteLine($"Precio Unitario: {PrecioUnitario}");
-            Console.WriteLine($"Descripcion: {Descripcion}");
+            Console.WriteLine($" Nombre: {Nombre}");
+            Console.WriteLine($" Unidades: {Unidades}");
+            Console.WriteLine($" Precio Unitario: {PrecioUnitario}");
+            Console.WriteLine($" Descripcion: {Descripcion}");
         }
 
         /// <summary>

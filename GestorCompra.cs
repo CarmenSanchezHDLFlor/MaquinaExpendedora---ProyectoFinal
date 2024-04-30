@@ -20,16 +20,16 @@ namespace MaquinaExpendedora___ProyectoFinal {
         /// </summary>
         /// <param name="total"></param>
         public void SeleccionarMetodoPago(double total) {
-            Console.WriteLine($"Total a pagar: Euros {total}");
-            Console.WriteLine("Seleccione el metodo de pago:");
-            Console.WriteLine("1. Efectivo");
-            Console.WriteLine("2. Tarjeta");
+            Console.WriteLine($" Total a pagar: Euros {total}");
+            Console.WriteLine(" Seleccione el metodo de pago:");
+            Console.WriteLine(" 1. Efectivo");
+            Console.WriteLine(" 2. Tarjeta");
 
             try {
                 int opcionPago = int.Parse(Console.ReadLine());
 
                 if (opcionPago != 1 && opcionPago != 2) {
-                    Console.WriteLine("Opcion invalida. Intente de nuevo.");
+                    Console.WriteLine(" Opcion invalida. Intente de nuevo.");
                     return;
                 }
 
@@ -44,10 +44,10 @@ namespace MaquinaExpendedora___ProyectoFinal {
 
             }
             catch (FormatException) {
-                Console.WriteLine("Opcion invalida. Intente de nuevo.");
+                Console.WriteLine(" Opcion invalida. Intente de nuevo.");
             }
             catch (Exception e) {
-                Console.WriteLine($"Error: {e.Message}");
+                Console.WriteLine($" Error: {e.Message}");
             }
         }
 
@@ -57,16 +57,16 @@ namespace MaquinaExpendedora___ProyectoFinal {
         /// <param name="total"></param>
         public void PagoEfectivo(double total) {
             double cantidadPagada = 0;
-            Console.WriteLine($"Total a pagar: Euros {total}");
+            Console.WriteLine($" Total a pagar: Euros {total}");
 
             while (cantidadPagada < total) {
-                Console.WriteLine($"Introduzca la cantidad en efectivo (Total restante: Euros {total - cantidadPagada}):");
+                Console.WriteLine($" Introduzca la cantidad en efectivo (Total restante: Euros {total - cantidadPagada}):");
 
                 try {
                     double moneda = double.Parse(Console.ReadLine());
 
                     if (moneda <= 0) {
-                        Console.WriteLine("Cantidad invalida. Intente de nuevo.");
+                        Console.WriteLine(" Cantidad invalida. Intente de nuevo.");
                         continue;
                     }
 
@@ -74,15 +74,15 @@ namespace MaquinaExpendedora___ProyectoFinal {
 
                 }
                 catch (FormatException) {
-                    Console.WriteLine("Cantidad invalida. Intente de nuevo.");
+                    Console.WriteLine(" Cantidad invalida. Intente de nuevo.");
                 }
                 catch (Exception e) {
-                    Console.WriteLine($"Error: {e.Message}");
+                    Console.WriteLine($" Error: {e.Message}");
                 }
             }
 
             double cambio = cantidadPagada - total;
-            Console.WriteLine($"Cambio: ${cambio}");
+            Console.WriteLine($" Cambio: ${cambio}");
         }
 
         /// <summary>
@@ -91,12 +91,12 @@ namespace MaquinaExpendedora___ProyectoFinal {
         /// </summary>
         /// <param name="total"></param>
         public void PagoTarjeta(double total) {
-            Console.WriteLine("Ingrese los detalles de la tarjeta:");
+            Console.WriteLine(" Ingrese los detalles de la tarjeta:");
 
             // Validar número de tarjeta
             string numeroTarjeta;
             while (true) {
-                Console.Write("Numero de tarjeta (16 digitos): ");
+                Console.Write(" Numero de tarjeta (16 digitos): ");
                 numeroTarjeta = Console.ReadLine();
 
                 try {
@@ -107,17 +107,17 @@ namespace MaquinaExpendedora___ProyectoFinal {
                     break;
                 }
                 catch (FormatException) {
-                    Console.WriteLine("Numero de tarjeta invalido. Intente de nuevo.");
+                    Console.WriteLine(" Numero de tarjeta invalido. Intente de nuevo.");
                 }
                 catch (Exception e) {
-                    Console.WriteLine($"Error: {e.Message}");
+                    Console.WriteLine($" Error: {e.Message}");
                 }
             }
 
             // Validar fecha de caducidad
             string fechaCaducidad;
             while (true) {
-                Console.Write("Fecha de caducidad (MM/YY): ");
+                Console.Write(" Fecha de caducidad (MM/YY): ");
                 fechaCaducidad = Console.ReadLine();
 
                 try {
@@ -125,17 +125,17 @@ namespace MaquinaExpendedora___ProyectoFinal {
                     break;
                 }
                 catch (FormatException) {
-                    Console.WriteLine("Fecha de caducidad invalida. Intente de nuevo.");
+                    Console.WriteLine(" Fecha de caducidad invalida. Intente de nuevo.");
                 }
                 catch (Exception e) {
-                    Console.WriteLine($"Error: {e.Message}");
+                    Console.WriteLine($" Error: {e.Message}");
                 }
             }
 
             // Validar CVV
             string cvv;
             while (true) {
-                Console.Write("CVV (3 digitos): ");
+                Console.Write(" CVV (3 digitos): ");
                 cvv = Console.ReadLine();
 
                 try {
@@ -146,15 +146,15 @@ namespace MaquinaExpendedora___ProyectoFinal {
                     break;
                 }
                 catch (FormatException) {
-                    Console.WriteLine("CVV invalido. Intente de nuevo.");
+                    Console.WriteLine(" CVV invalido. Intente de nuevo.");
                 }
                 catch (Exception e) {
-                    Console.WriteLine($"Error: {e.Message}");
+                    Console.WriteLine($" Error: {e.Message}");
                 }
             }
 
-            Console.WriteLine("Procesando pago...");
-            Console.WriteLine($"Pago de ${total} realizado con exito.");
+            Console.WriteLine(" Procesando pago...");
+            Console.WriteLine($" Pago de ${total} realizado con exito.");
         }
 
     }
