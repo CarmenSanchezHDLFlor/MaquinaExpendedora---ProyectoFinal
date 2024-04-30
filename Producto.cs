@@ -1,13 +1,20 @@
 ﻿using MaquinaExpendedora___ProyectoFinal;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MaquinaExpendedora_ProyectoFinal {
-    internal class Producto : InterfazUsuario {
+    internal class Producto {
 
+        // TIPO ENUM 
+
+        /// <summary>
+        /// Propiedad pública tipo Enum de TipoProducto
+        /// Nos ayuda a saber que tipos de productos tenemos 
+        /// </summary>
         public enum TipoProducto {
             MaterialesPreciosos,
             ProductosAlimenticios,
@@ -15,54 +22,64 @@ namespace MaquinaExpendedora_ProyectoFinal {
         }
 
         // PROPIEDADES
+
+        /// <summary>
+        /// Propiedad pública Id de un producto 
+        /// </summary>
+        public int Id { get; set; }
+
+        /// <summary>
+        /// Propiedad pública Nombre de un producto 
+        /// </summary>
         public string Nombre { get; set; }
+
+        /// <summary>
+        /// Propiedad pública Unidades
+        /// Cuantas unidades de cada producto tenemos 
+        /// </summary>
         public int Unidades { get; set; }
+
+        /// <summary>
+        /// Propiedad pública PrecioUnitario
+        /// El precio de cada producto 
+        /// </summary>
         public double PrecioUnitario { get; set; }
+
+        /// <summary>
+        /// Propiedad pública de Descripcion 
+        /// La descripcion de cada producto que tenemos en la máquina 
+        /// </summary>
         public string Descripcion { get; set; }
 
-        public int Id {  get; set; }
+        /// <summary>
+        /// Propiedad pública de Vendido
+        /// Nos ayuda a comprobar si un producto ha sido vendido, no tenemos stock o no 
+        /// </summary>
         public bool Vendido {  get; set; }
 
+        /// <summary>
+        /// Propiedad pública de TipoProducto 
+        /// </summary>
         public TipoProducto Tipo;
 
         // CONTRUCTORES 
+
+        /// <summary>
+        /// Contructor por defecto de Producto 
+        /// </summary>
         public Producto() { }
 
         // CONTRUCTOR PARAMETRIZADO
-        public Producto(string nombre, int unidades, double precioUnitario, string descripcion) {
-            Nombre = nombre;
-            Unidades = unidades;
-            PrecioUnitario = precioUnitario;
-            Descripcion = descripcion;
-        }
-
-        // CONTRUCTOR PARAMETRIZADO 2
-        public Producto(string nombre, int unidades, double precioUnitario, string descripcion, bool vendido) {
-            Nombre = nombre;
-            Unidades = unidades;
-            PrecioUnitario = precioUnitario;
-            Descripcion = descripcion;
-            Vendido = vendido;
-        }
-
-        public Producto(int id, string nombre,TipoProducto tipo, string descripcion, int unidades, bool vendido) {
-            Id = id;
-            Nombre = nombre;
-            Tipo = tipo;
-            Descripcion = descripcion;
-            Unidades = unidades;
-            Vendido = vendido;
-        }
-
-        public Producto(int id, string nombre, int unidades, double precioUnitario, string descripcion) {
-            Id = id;
-            Nombre = nombre;
-            Unidades = unidades;
-            PrecioUnitario = precioUnitario;
-            Descripcion = descripcion;
-        }
-
-        // este se usa en interfazUsuario para cargar los productos 
+        /// <summary>
+        /// Constructor parametrizado de Producto 
+        /// Inicializa las propiedades de Producto
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="nombre"></param>
+        /// <param name="tipo"></param>
+        /// <param name="descripcion"></param>
+        /// <param name="unidades"></param>
+        /// <param name="precioUnitario"></param>
         public Producto(int id, string nombre, TipoProducto tipo, string descripcion, int unidades, double precioUnitario) {
             Id = id;
             Nombre = nombre;
@@ -72,9 +89,13 @@ namespace MaquinaExpendedora_ProyectoFinal {
             PrecioUnitario = precioUnitario;
         }
 
-
         // METODOS
-        // metodo para mostrar informacion de cada producto
+
+        /// <summary>
+        /// Método público para mostrar informacion de cada producto
+        /// Este método es el que se va a sobreescribir en sus hijas 'ProductosElectronico', 'ProductosAlimenticios' y 'MaterialesPreciosos'
+        /// Nos da la información común de cada producto 
+        /// </summary>
         public virtual void MostrarInformacion() {
             Console.WriteLine($"Nombre: {Nombre}");
             Console.WriteLine($"Unidades: {Unidades}");
@@ -82,18 +103,20 @@ namespace MaquinaExpendedora_ProyectoFinal {
             Console.WriteLine($"Descripcion: {Descripcion}");
         }
 
-        // metodo para consultar si el producto esta vendido
+        /// <summary>
+        /// Método público para consultar si el producto está vendido
+        /// </summary>
+        /// <returns>Vendido</returns>
         public bool EstaVendido() {
             return Vendido;
         }
 
-        // metodo para marcar el producto como vendido
+        /// <summary>
+        /// Método público para marcar el producto como vendido
+        /// </summary>
         public void MarcarComoVendido() {
             Vendido = true;
         }
 
-        public override string ToString() {
-            return $"ID: {Id}, Nombre: {Nombre}, Tipo: {Tipo}, Unidades: {Unidades}, Precio: ${PrecioUnitario}, Descripción: {Descripcion}, Vendido: {(Vendido ? "Sí" : "No")}";
-        }
     }
 }
